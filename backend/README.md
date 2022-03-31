@@ -1,5 +1,14 @@
 # Getting Started
 
+## Usage
+
+In the project directory run:  
+```
+mvn spring-boot:run
+```
+
+
+
 ### Reference Documentation
 
 * [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
