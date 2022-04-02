@@ -1,4 +1,4 @@
-package model.tasks;
+package application.model.tasks;
 
 public interface Completable {
 
