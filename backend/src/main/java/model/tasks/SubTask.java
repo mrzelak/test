@@ -1,13 +1,26 @@
 package model.tasks;
 
-public class SubTask implements Completable {
+import application.Commons;
 
-    private final int id;
+import javax.persistence.*;
+
+@Entity
+@Table(name = Commons.SUBTASKS)
+public class SubTask implements Completable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String name;
     private String description;
     private boolean isFinished;
 
-    private final Task mainTask;
+    @ManyToOne
+    @JoinColumn(name = Commons.TASK_ID, nullable = false)
+    private Task mainTask;
+
+    public SubTask() {
+    }
 
     public SubTask(int id, String name, String description, Task mainTask) {
         this.id = id;

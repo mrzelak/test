@@ -1,18 +1,33 @@
 package model.tasks;
 
+import application.Commons;
+
+import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
+@Entity
+@Table(name = Commons.TASKS)
 public class Task implements Completable {
 
-    private final int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String name;
     private String description;
     private String date;
-//    private String deadline;
+    //    private String deadline;
     private boolean isFinished;
 
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<SubTask> subTasks = null;
+
+    public Task() {
+    }
 
     public Task(int id, String name, String description, String date) {
         this.id = id;
@@ -66,7 +81,7 @@ public class Task implements Completable {
 
     @Override
     public void setUnfinished() {
-        isFinished = true;
+        isFinished = false;
     }
 
     public List<SubTask> getSubTasks() {
@@ -74,14 +89,14 @@ public class Task implements Completable {
     }
 
     public void addSubTask(SubTask subTask) {
-        if(subTasks == null) {
+        if (subTasks == null) {
             subTasks = new LinkedList<>();
         }
         subTasks.add(subTask);
     }
 
     public void removeSubTask(SubTask subTask) {
-        if(subTasks.size() == 1) {
+        if (subTasks.size() == 1) {
             subTasks = null;
         } else {
             subTasks.remove(subTask);
