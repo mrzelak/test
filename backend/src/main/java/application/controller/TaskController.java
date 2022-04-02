@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.model.tasks.Task;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import application.service.TaskService;
@@ -9,11 +10,8 @@ import java.util.List;
 
 @RestController
 public class TaskController {
-    private final TaskService taskService;
-
-    public TaskController(TaskService taskService) {
-        this.taskService = taskService;
-    }
+    @Autowired
+    private TaskService taskService;
 
     @GetMapping("/task")
     public List<Task> findAll() {
