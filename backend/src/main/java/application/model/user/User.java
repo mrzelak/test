@@ -1,6 +1,7 @@
-package model.user;
+package application.model.user;
 
-import model.tasks.Completable;
+
+import application.model.tasks.Completable;
 
 import java.util.LinkedList;
 import java.util.List;
