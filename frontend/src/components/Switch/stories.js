@@ -4,7 +4,7 @@ import AppThemeProvider from 'providers/Theme';
 import Component from '.';
 
 export default {
-  title: 'Input',
+  title: 'Switch',
   component: Component,
 };
 
@@ -19,16 +19,10 @@ const Template = (args) => (
 );
 
 const Default = Template.bind({});
-const Error = Template.bind({});
 
 Default.args = {
-  label: 'My input',
-  name: 'input',
+  name: 'switch',
+  label: 'My Switch',
 };
 
-Error.args = {
-  ...Default.args,
-  error: 'Please fill the field!',
-};
-
-export { Default, Error };
+export { Default };
