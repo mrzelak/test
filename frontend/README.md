@@ -1,4 +1,8 @@
  - PORT=3333 in .env file will change default port for this application
+# Quick Start
+ - create .env file with: PORT=3333
+ - npm i
+ - npm start / npm run storybook
 
 # Getting Started with Create React App
 
