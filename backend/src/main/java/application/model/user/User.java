@@ -11,10 +11,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-import application.model.tasks.Completable;
-import application.model.tasks.Task;
-import java.util.LinkedList;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -25,8 +21,8 @@ import java.util.List;
 public class User {
     @Id
     @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
     @NotBlank
     @Column(name = "user_name", unique = true)
@@ -43,4 +39,6 @@ public class User {
     @Column(name = "password")
     @Size(min = 8, max = 40)
     private String password;
+
+
 }
