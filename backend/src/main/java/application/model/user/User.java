@@ -39,6 +39,4 @@ public class User {
     @Column(name = "password")
     @Size(min = 8, max = 40)
     private String password;
-
-
 }
