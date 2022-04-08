@@ -11,7 +11,7 @@ const Routing = () => (
     <Route path="application">
       <Route path="dashboard" element="TODO: Dashboard" />
       <Route path="settings" element="TODO: Settings" />
-      <Route path="task">
+      <Route path="tasks">
         <Route path="add" element={<TaskAddEdit />} />
       </Route>
     </Route>
