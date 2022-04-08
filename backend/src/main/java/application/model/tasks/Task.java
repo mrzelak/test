@@ -20,6 +20,11 @@ public class Task implements Completable {
     //    private String deadline;
     private boolean isFinished;
 
+    @OneToOne(
+            cascade = CascadeType.ALL
+    )
+    private Task previousTask;
+
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true
@@ -29,16 +34,17 @@ public class Task implements Completable {
     public Task() {
     }
 
-    public Task(int id, String name, String description, String date) {
+    public Task(int id, String name, String description, String date, Task previousTask) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.date = date;
         this.isFinished = false;
+        this.previousTask = previousTask;
     }
 
     public Task(int id, String name, String date) {
-        this(id, name, "no description", date);
+        this(id, name, "no description", date, null);
     }
 
     public int getId() {
@@ -101,5 +107,13 @@ public class Task implements Completable {
         } else {
             subTasks.remove(subTask);
         }
+    }
+
+    public Task getPreviousTask() {
+        return previousTask;
+    }
+
+    public void setPreviousTask(Task previousTask) {
+        this.previousTask = previousTask;
     }
 }
