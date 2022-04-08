@@ -1,4 +1,4 @@
-export default {
+export default (isDone) => ({
   root: {
     width: '100%',
     height: 50,
@@ -10,10 +10,12 @@ export default {
     backgroundColor: 'white',
     border: (theme) => `1px solid ${theme.palette.neutral.main}`,
     boxSizing: 'border-box',
+    cursor: 'pointer',
+    ...(isDone && { opacity: 0.4 }),
   },
   title: {
     flex: 1,
   },
   warning: { color: 'warning.main' },
   error: { color: 'error.main' },
-};
+});
