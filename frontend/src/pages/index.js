@@ -1,6 +1,8 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import AuthorizedLayout from 'layouts/AuthorizedLayout';
 import TaskAddEdit from 'pages/authorized/Task/AddEdit';
+import TaskList from 'pages/authorized/Task/List';
 
 const Routing = () => (
   <Routes>
@@ -11,8 +13,9 @@ const Routing = () => (
     <Route path="application">
       <Route path="dashboard" element="TODO: Dashboard" />
       <Route path="settings" element="TODO: Settings" />
-      <Route path="tasks">
+      <Route path="tasks" element={<AuthorizedLayout />}>
         <Route path="add" element={<TaskAddEdit />} />
+        <Route path="list" element={<TaskList />} />
       </Route>
     </Route>
 
