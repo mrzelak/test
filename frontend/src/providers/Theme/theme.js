@@ -36,6 +36,9 @@ const common = {
     big: 16,
     huge: 20,
   },
+  shape: {
+    borderRadius: 1,
+  },
 };
 
 const theme = {
