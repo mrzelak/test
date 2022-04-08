@@ -1,9 +1,9 @@
 const colors = {
   primary: {
     contrastText: 'white',
-    light: '#91ffa2',
-    main: '#14db32',
-    dark: '#0d801e',
+    light: '#BEE6FD',
+    main: '#43A6DE',
+    dark: '#187AB1',
   },
   secondary: {
     contrastText: 'white',
@@ -12,10 +12,19 @@ const colors = {
     dark: '#80650d',
   },
   neutral: {
-    light: '#fcfcfc',
-    main: '#f2f2f2',
-    dark: '#d4d4d4',
+    light: '#E1E1E1',
+    main: '#E1E1E1',
+    dark: '#CBCBCB',
   },
+  error: {
+    main: '#DE4343',
+  },
+  warning: {
+    main: '#C69C07',
+  },
+  white: '#FFFFFF',
+  black: '#000000',
+  background: '#F6F6F6',
 };
 
 const common = {
