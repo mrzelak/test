@@ -1,5 +1,5 @@
 import React from 'react';
-import _noop from 'lodash/noop';
+import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/system';
 import getStyles from './styles';
@@ -28,7 +28,7 @@ Check.propTypes = {
 
 Check.defaultProps = {
   checked: false,
-  onClick: _noop,
+  onClick: noop,
   sx: {},
 };
 

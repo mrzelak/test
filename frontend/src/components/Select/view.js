@@ -1,6 +1,6 @@
 import React from 'react';
-import _isEmpty from 'lodash/isEmpty';
-import _map from 'lodash/map';
+import isEmpty from 'lodash/isEmpty';
+import map from 'lodash/map';
 import PropTypes from 'prop-types';
 import {
   FormControl,
@@ -14,7 +14,7 @@ import { optionsShape } from './shapes';
 const Select = ({ field, error, helperText, label, options, sx, ...props }) => (
   <FormControl
     fullWidth
-    error={!_isEmpty(error)}
+    error={!isEmpty(error)}
     sx={{
       width: '100%',
       ...sx,
@@ -29,14 +29,14 @@ const Select = ({ field, error, helperText, label, options, sx, ...props }) => (
         field.onChange(event);
       }}
     >
-      {_map(options, ({ value, label }) => (
+      {map(options, ({ value, label }) => (
         <MenuItem value={value} key={value}>
           {label}
         </MenuItem>
       ))}
     </MUISelect>
-    {!_isEmpty(error) ||
-      (!_isEmpty(helperText) && (
+    {!isEmpty(error) ||
+      (!isEmpty(helperText) && (
         <FormHelperText>{error || helperText}</FormHelperText>
       ))}
   </FormControl>

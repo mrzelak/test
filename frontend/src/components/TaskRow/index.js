@@ -1,16 +1,22 @@
 import React from 'react';
-import _noop from 'lodash/noop';
+import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/system';
 import Check from 'components/Check';
 import { severityShape } from './shapes';
 import getStyles from './styles';
 
-const TaskRow = ({ isDone, title, time, severity, onClick, sx }) => {
+const TaskRow = ({ isDone, title, time, severity, onClick, onCheck, sx }) => {
   const styles = getStyles(isDone);
+
+  const handleCheck = (event) => {
+    event.stopPropagation();
+    onCheck();
+  };
+
   return (
     <Box sx={{ ...styles.root, ...sx }} onClick={onClick}>
-      <Check checked={isDone} sx={{ marginRight: 10 }} />
+      <Check checked={isDone} onClick={handleCheck} sx={{ marginRight: 10 }} />
       <Box sx={styles.title}>{title}</Box>
       <Box
         sx={{
@@ -30,13 +36,15 @@ TaskRow.propTypes = {
   isDone: PropTypes.bool,
   severity: severityShape,
   onClick: PropTypes.func,
+  onCheck: PropTypes.func,
   sx: PropTypes.object,
 };
 
 TaskRow.defaultProps = {
   severity: 'default',
   isDone: false,
-  onClick: _noop,
+  onClick: noop,
+  onCheck: noop,
   sx: {},
 };
 

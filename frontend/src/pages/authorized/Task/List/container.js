@@ -1,32 +1,24 @@
 import React from 'react';
+import mockedTasks from 'mocks/tasks';
+import { getMappedTasks } from './utils';
 import TaskLIstView from './view';
 
 const TaskListContainer = () => {
-  const mockedTasks = [
-    {
-      id: 0,
-      title: 'Posprzątać w domu',
-      time: '16:00',
-      severity: 'error',
-    },
-    {
-      id: 1,
-      title: 'Pozmywać naczynia',
-      time: '17:00',
-      severity: 'warning',
-    },
-    {
-      id: 2,
-      title: 'Wyprowadzić psa',
-      time: '21:00',
-    },
-  ];
-
   const onTaskClick = (id) => {
-    console.log(id);
+    console.log('Task clicked: ', id);
   };
 
-  return <TaskLIstView tasks={mockedTasks} onTaskClick={onTaskClick} />;
+  const onTaskCheck = (id) => {
+    console.log('Task checked: ', id);
+  };
+
+  return (
+    <TaskLIstView
+      tasks={getMappedTasks(mockedTasks)}
+      onTaskClick={onTaskClick}
+      onTaskCheck={onTaskCheck}
+    />
+  );
 };
 
 export default TaskListContainer;

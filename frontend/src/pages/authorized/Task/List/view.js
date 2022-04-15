@@ -1,44 +1,38 @@
 import React from 'react';
-import _map from 'lodash/map';
-import _noop from 'lodash/noop';
+import map from 'lodash/map';
+import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
-import TaskRow from 'components/TaskRow';
-import { severityShape } from 'components/TaskRow/shapes';
+import DayTasks from 'templates/DayTasks';
+import { tasksWithDateShape } from './shapes';
 
-const TaskListView = ({ tasks, onTaskClick }) => {
+const TaskListView = ({ tasks, onTaskClick, onTaskCheck }) => {
   return (
     <Box>
-      {_map(tasks, (task) => (
-        <TaskRow
-          key={task.id}
-          isDone={task.id % 2 == 0} // TODO get from API
-          onClick={() => onTaskClick(task.id)}
-          title={task.title}
-          time={task.time}
-          severity={task.severity}
-          sx={{ marginBottom: 5 }}
-        />
+      {map(tasks, (entry) => (
+        <Box sx={{ marginBottom: 20 }} key={entry.id}>
+          <DayTasks
+            date={entry.date}
+            tasks={entry.tasks}
+            onTaskClick={onTaskClick}
+            onTaskCheck={onTaskCheck}
+          />
+        </Box>
       ))}
     </Box>
   );
 };
 
 TaskListView.propTypes = {
-  tasks: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      title: PropTypes.string,
-      time: PropTypes.string,
-      severity: severityShape,
-    })
-  ),
+  tasks: tasksWithDateShape,
   onTaskClick: PropTypes.func,
+  onTaskCheck: PropTypes.func,
 };
 
 TaskListView.defaultProps = {
   tasks: [],
-  onTaskClick: _noop,
+  onTaskClick: noop,
+  onTaskCheck: noop,
 };
 
 export default TaskListView;

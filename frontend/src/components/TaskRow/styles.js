@@ -1,6 +1,7 @@
 export default (isDone) => ({
   root: {
     width: '100%',
+    minWidth: 400,
     height: 50,
     borderRadius: 10,
     display: 'flex',
