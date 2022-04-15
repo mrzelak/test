@@ -4,6 +4,8 @@ import AuthorizedLayout from 'layouts/AuthorizedLayout';
 import TaskAddEdit from 'pages/authorized/Task/AddEdit';
 import TaskList from 'pages/authorized/Task/List';
 
+const DEFAULT_ROUTE = '/application/tasks/list';
+
 const Routing = () => (
   <Routes>
     <Route path="public">
@@ -19,7 +21,7 @@ const Routing = () => (
       </Route>
     </Route>
 
-    <Route path="*" element={<Navigate to="/public/login" replace />} />
+    <Route path="*" element={<Navigate to={DEFAULT_ROUTE} replace />} />
   </Routes>
 );
 
