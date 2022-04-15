@@ -11,8 +11,8 @@ import java.util.List;
 public class Task implements Completable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String name;
     private String description;
@@ -29,7 +29,7 @@ public class Task implements Completable {
     public Task() {
     }
 
-    public Task(int id, String name, String description, String date) {
+    public Task(Long id, String name, String description, String date) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -37,11 +37,11 @@ public class Task implements Completable {
         this.isFinished = false;
     }
 
-    public Task(int id, String name, String date) {
+    public Task(Long id, String name, String date) {
         this(id, name, "no description", date);
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
