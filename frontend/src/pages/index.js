@@ -6,7 +6,7 @@ import TaskAddEdit from 'pages/authorized/Task/AddEdit';
 import TaskList from 'pages/authorized/Task/List';
 import Login from 'pages/public/Login';
 
-const DEFAULT_ROUTE = '/application/tasks/list';
+const DEFAULT_ROUTE = '/public/login';
 
 const Routing = () => (
   <Routes>
