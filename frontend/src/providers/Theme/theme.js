@@ -29,12 +29,25 @@ const colors = {
 
 const common = {
   spacing: 1,
-  fontSize: {
-    tiny: 10,
-    small: 12,
-    medium: 14,
-    big: 16,
-    huge: 20,
+  typography: {
+    h1: {
+      fontSize: 24,
+    },
+    h2: {
+      fontSize: 20,
+    },
+    h3: {
+      fontSize: 16,
+    },
+    h4: {
+      fontSize: 14,
+    },
+    body: {
+      fontSize: 12,
+    },
+    tiny: {
+      fontSize: 10,
+    },
   },
   shape: {
     borderRadius: 1,
