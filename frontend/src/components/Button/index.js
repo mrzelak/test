@@ -1,20 +1,22 @@
 import React from 'react';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
-import { Button as MUIButton } from '@mui/material';
+import { Button as MUIButton, Typography } from '@mui/material';
 import getStyles from './styles';
 
-const Button = ({ color, onClick, children, submit }) => {
-  const styles = getStyles(color);
+const Button = ({ size, onClick, children, submit }) => {
+  const styles = getStyles();
 
   return (
     <MUIButton
       type={submit ? 'submit' : undefined}
       onClick={onClick}
       variant="contained"
-      sx={styles.root}
+      sx={{ ...styles.root, ...(size === 'small' && styles.small) }}
     >
-      {children}
+      <Typography variant={size === 'small' ? 'h3' : 'h2'}>
+        {children}
+      </Typography>
     </MUIButton>
   );
 };
@@ -22,13 +24,13 @@ const Button = ({ color, onClick, children, submit }) => {
 Button.propTypes = {
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func,
-  color: PropTypes.oneOf(['primary', 'secondary']),
+  size: PropTypes.oneOf(['small', 'big']),
   submit: PropTypes.bool,
 };
 
 Button.defaultProps = {
   onClick: noop,
-  color: 'primary',
+  size: 'big',
   submit: false,
 };
 
