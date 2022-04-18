@@ -13,17 +13,16 @@ const Template = (args) => (
   </AppThemeProvider>
 );
 
-const Primary = Template.bind({});
-const Secondary = Template.bind({});
+const Default = Template.bind({});
+const Small = Template.bind({});
 
-Primary.args = {
-  color: 'primary',
-  children: 'Primary',
+Default.args = {
+  children: 'Default',
 };
 
-Secondary.args = {
-  color: 'secondary',
+Small.args = {
+  size: 'small',
   children: 'Secondary',
 };
 
-export { Primary, Secondary };
+export { Default, Small };
