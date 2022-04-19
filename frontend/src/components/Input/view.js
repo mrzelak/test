@@ -1,19 +1,25 @@
 import React from 'react';
-import _isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
 
-const Input = ({ field, error, helperText, label, sx, ...props }) => (
+const InputView = ({ field, error, type, helperText, label, sx, ...props }) => (
   <TextField
     {...field}
     {...props}
+    type={type}
     label={label}
-    error={!_isEmpty(error)}
+    error={!isEmpty(error)}
     helperText={error || helperText}
     variant="outlined"
     sx={{
       width: '100%',
       ...sx,
+    }}
+    InputProps={{
+      sx: {
+        borderRadius: 5,
+      },
     }}
     FormHelperTextProps={{
       sx: {
@@ -23,18 +29,20 @@ const Input = ({ field, error, helperText, label, sx, ...props }) => (
   />
 );
 
-Input.propTypes = {
+InputView.propTypes = {
   label: PropTypes.string.isRequired,
   field: PropTypes.any,
   error: PropTypes.string,
   helperText: PropTypes.string,
+  type: PropTypes.oneOf(['text', 'password']),
   sx: PropTypes.objectOf(PropTypes.any),
 };
 
-Input.defaultProps = {
+InputView.defaultProps = {
   error: '',
   helperText: '',
+  type: 'text',
   sx: {},
 };
 
-export default Input;
+export default InputView;

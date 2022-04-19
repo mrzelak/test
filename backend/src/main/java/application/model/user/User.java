@@ -1,36 +1,41 @@
 package application.model.user;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
-import application.model.tasks.Completable;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.LinkedList;
-import java.util.List;
+import javax.persistence.*;
 
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "users")
+@Builder
 public class User {
+    @Id
+    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
-    private final int id;
-    private final String mail;
+    @NotBlank
+    @Column(name = "user_name", unique = true)
+    @Size(min = 3, max = 30)
+    private String username;
 
-    List<Completable> tasks = new LinkedList<>();
+    @NotBlank
+    @Column(name= "email")
+    @Size(min = 6, max = 40)
+    @Email
+    private  String email;
 
-    public User(int id, String mail) {
-        this.id = id;
-        this.mail = mail;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void addTask(Completable task) {
-        tasks.add(task);
-    }
-
-    public void removeTask(Completable task) {
-        tasks.remove(task);
-    }
+    @NotBlank
+    @Size(min = 8, max = 40)
+    private String password;
 }

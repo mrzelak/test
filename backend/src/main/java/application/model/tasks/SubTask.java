@@ -8,8 +8,8 @@ import javax.persistence.*;
 @Table(name = Commons.SUBTASKS)
 public class SubTask implements Completable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String name;
     private String description;
@@ -22,7 +22,7 @@ public class SubTask implements Completable {
     public SubTask() {
     }
 
-    public SubTask(int id, String name, String description, Task mainTask) {
+    public SubTask(Long id, String name, String description, Task mainTask) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -30,11 +30,11 @@ public class SubTask implements Completable {
         this.isFinished = false;
     }
 
-    public SubTask(int id, String name, Task mainTask) {
+    public SubTask(Long id, String name, Task mainTask) {
         this(id, name, "no description", mainTask);
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

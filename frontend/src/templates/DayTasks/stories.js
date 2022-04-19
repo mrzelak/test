@@ -1,9 +1,10 @@
 import React from 'react';
+import mockedTasks from 'mocks/tasks';
 import AppThemeProvider from 'providers/Theme';
 import Component from '.';
 
 export default {
-  title: 'Button',
+  title: 'DayTasks',
   component: Component,
 };
 
@@ -14,15 +15,10 @@ const Template = (args) => (
 );
 
 const Default = Template.bind({});
-const Small = Template.bind({});
 
 Default.args = {
-  children: 'Default',
+  date: new Date(),
+  tasks: mockedTasks,
 };
 
-Small.args = {
-  size: 'small',
-  children: 'Secondary',
-};
-
-export { Default, Small };
+export { Default };

@@ -3,7 +3,7 @@ import AppThemeProvider from 'providers/Theme';
 import Component from '.';
 
 export default {
-  title: 'Button',
+  title: 'DayIndicator',
   component: Component,
 };
 
@@ -14,15 +14,9 @@ const Template = (args) => (
 );
 
 const Default = Template.bind({});
-const Small = Template.bind({});
 
 Default.args = {
-  children: 'Default',
+  date: new Date(),
 };
 
-Small.args = {
-  size: 'small',
-  children: 'Secondary',
-};
-
-export { Default, Small };
+export { Default };
