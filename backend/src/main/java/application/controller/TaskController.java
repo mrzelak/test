@@ -35,4 +35,10 @@ public class TaskController {
     Task setPreviousTask(@RequestBody Task previousTask, @PathVariable Integer id) {
             return taskService.setPreviousTask(id, previousTask);
     }
+
+    @PutMapping("/employees/{id}")
+    Task updateTask(@RequestBody Task newTask, @PathVariable Integer id) {
+        return taskService.updateTask(id, newTask);
+    }
+
 }
