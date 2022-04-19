@@ -1,5 +1,6 @@
 package application.service;
 
+import application.model.tasks.SubTask;
 import application.model.tasks.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,6 @@ public class TaskService {
 
     public void addTask(Task task) {
         taskRepository.save(task);
-    }
-
-    public Optional<Task> findById(Integer id) {
-        return taskRepository.findById(id);
     }
 
     public Task setPreviousTask(Integer id, Task previousTask) {
@@ -48,6 +45,11 @@ public class TaskService {
     }
 
     public void deleteTask(Integer id) {
+        Task task = taskRepository.findById(id).get();
+        for(SubTask subTask : task.getSubTasks()) {
+            task.removeSubTask(subTask);
+        }
+        taskRepository.save(task);
         taskRepository.deleteById(id);
     }
 }
