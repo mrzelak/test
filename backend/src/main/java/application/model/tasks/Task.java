@@ -34,17 +34,16 @@ public class Task implements Completable {
     public Task() {
     }
 
-    public Task(int id, String name, String description, String date, Task previousTask) {
+    public Task(int id, String name, String description, String date) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.date = date;
         this.isFinished = false;
-        this.previousTask = previousTask;
     }
 
     public Task(int id, String name, String date) {
-        this(id, name, "no description", date, null);
+        this(id, name, "no description", date);
     }
 
     public int getId() {
