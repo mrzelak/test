@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
-import _noop from 'lodash/noop';
+import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 import Button from 'components/Button';
@@ -44,7 +44,7 @@ TaskAddEdit.propTypes = {
 };
 
 TaskAddEdit.defaultProps = {
-  onSubmit: _noop,
+  onSubmit: noop,
   initialValues: {},
 };
 

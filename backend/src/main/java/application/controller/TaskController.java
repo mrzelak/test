@@ -26,7 +26,6 @@ public class TaskController {
     @PostMapping(path = "/task",
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public Task addTask(@RequestBody Task task) {
-        System.out.println("HELLO");
         taskService.addTask(task);
         return task;
     }

@@ -1,14 +1,16 @@
-export default (color) => ({
+export default () => ({
   root: {
     minWidth: 120,
-    height: 40,
+    height: 50,
     borderRadius: 50,
-    color: (theme) => theme.palette[color].contrastText,
+    color: (theme) => theme.palette.primary.contrastText,
     textTransform: 'none',
-    fontSize: (theme) => theme.fontSize.big,
-    backgroundColor: (theme) => theme.palette[color].main,
+    backgroundColor: (theme) => theme.palette.primary.main,
     '&:hover': {
-      backgroundColor: (theme) => theme.palette[color].dark,
+      backgroundColor: (theme) => theme.palette.primary.dark,
     },
+  },
+  small: {
+    height: 35,
   },
 });
