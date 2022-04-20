@@ -31,17 +31,17 @@ public class TaskController {
     }
 
     @PutMapping("/employees/{id}")
-    Task setPreviousTask(@RequestBody Task previousTask, @PathVariable Integer id) {
+    Task setPreviousTask(@RequestBody Task previousTask, @PathVariable Long id) {
             return taskService.setPreviousTask(id, previousTask);
     }
 
     @PutMapping("/employees/{id}")
-    Task updateTask(@RequestBody Task newTask, @PathVariable Integer id) {
+    Task updateTask(@RequestBody Task newTask, @PathVariable Long id) {
         return taskService.updateTask(id, newTask);
     }
 
     @DeleteMapping("/employees/{id}")
-    public void deleteTask(@PathVariable Integer id) {
+    public void deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
     }
 
