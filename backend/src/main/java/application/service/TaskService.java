@@ -21,18 +21,18 @@ public class TaskService {
         taskRepository.save(task);
     }
 
-    public Optional<Task> findById(Integer id) {
+    public Optional<Task> findById(Long id) {
         return taskRepository.findById(id);
     }
 
-    public Task setPreviousTask(Integer id, Task previousTask) {
+    public Task setPreviousTask(Long id, Task previousTask) {
         Task task = taskRepository.findById(id).get();
         task.setPreviousTask(previousTask);
 
         return taskRepository.save(task);
     }
 
-    public Task updateTask(Integer id, Task newTask) {
+    public Task updateTask(Long id, Task newTask) {
         Task task = taskRepository.findById(id).get();
         task.setName(newTask.getName());
         task.setDescription(newTask.getDescription());
