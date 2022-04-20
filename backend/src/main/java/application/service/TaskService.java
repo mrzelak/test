@@ -1,13 +1,11 @@
 package application.service;
 
-import application.model.tasks.SubTask;
 import application.model.tasks.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import application.repository.TaskRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -45,11 +43,6 @@ public class TaskService {
     }
 
     public void deleteTask(Integer id) {
-        Task task = taskRepository.findById(id).get();
-        for(SubTask subTask : task.getSubTasks()) {
-            task.removeSubTask(subTask);
-        }
-        taskRepository.save(task);
         taskRepository.deleteById(id);
     }
 }
