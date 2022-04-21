@@ -29,7 +29,7 @@ public class TaskController {
         taskService.addTask(task);
         return task;
     }
-
+  
     @PutMapping("/task/{id}/previous")
     Task setPreviousTask(@RequestBody Task previousTask, @PathVariable Long id) {
             return taskService.setPreviousTask(id, previousTask);
