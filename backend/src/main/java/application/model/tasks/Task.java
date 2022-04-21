@@ -20,6 +20,11 @@ public class Task implements Completable {
     //    private String deadline;
     private boolean isFinished;
 
+    @OneToOne(
+            cascade = CascadeType.ALL
+    )
+    private Task previousTask;
+
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true
@@ -101,5 +106,13 @@ public class Task implements Completable {
         } else {
             subTasks.remove(subTask);
         }
+    }
+
+    public Task getPreviousTask() {
+        return previousTask;
+    }
+
+    public void setPreviousTask(Task previousTask) {
+        this.previousTask = previousTask;
     }
 }

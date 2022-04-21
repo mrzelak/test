@@ -29,4 +29,20 @@ public class TaskController {
         taskService.addTask(task);
         return task;
     }
+
+    @PutMapping("/task/{id}/previous")
+    Task setPreviousTask(@RequestBody Task previousTask, @PathVariable Long id) {
+            return taskService.setPreviousTask(id, previousTask);
+    }
+
+    @PutMapping("/task/{id}")
+    Task updateTask(@RequestBody Task newTask, @PathVariable Long id) {
+        return taskService.updateTask(id, newTask);
+    }
+
+    @DeleteMapping("/task/{id}")
+    public void deleteTask(@PathVariable Long id) {
+        taskService.deleteTask(id);
+    }
+
 }
