@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import application.repository.TaskRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -18,6 +19,10 @@ public class TaskService {
 
     public void addTask(Task task) {
         taskRepository.save(task);
+    }
+
+    public Optional<Task> findById(Long id) {
+        return taskRepository.findById(id);
     }
 
     public Task setPreviousTask(Long id, Task previousTask) {
