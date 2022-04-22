@@ -21,15 +21,14 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public boolean existsByUsername(String login) {
-        return userRepository.existsByUsername(login);
+    public boolean existsByLogin(String login) {
+        return userRepository.existsByLogin(login);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByUsername(username);
-        user.orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
-
+        Optional<User> user = userRepository.findByLogin(username);
+        user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + username));
         return user.map(UserDetailsImpl::new).get();
     }
 }

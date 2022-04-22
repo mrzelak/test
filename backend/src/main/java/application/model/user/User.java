@@ -10,8 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,7 +25,7 @@ public class User {
     @NotBlank
     @Column(name = "user_name", unique = true)
     @Size(min = 3, max = 30)
-    private String username;
+    private String login;
 
     @NotBlank
     @Column(name= "email")

@@ -12,15 +12,14 @@ import org.springframework.security.core.Authentication;
 import java.util.Date;
 import io.jsonwebtoken.*;
 
-
 @Component
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${app.jwtSecret}")
+    @Value("${jwt.secret}")
     private String jwtSecret;
 
-    @Value("${app.jwtExpirationMs}")
+    @Value("${jwt.expiration.ms}")
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {

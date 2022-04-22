@@ -1,5 +1,4 @@
 package application.controller;
-
 import application.model.user.User;
 import application.model.user.UserDetailsImpl;
 import application.payload.request.SigninRequest;
@@ -36,7 +35,6 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder encoder;
-
     @Autowired
     private JwtUtils jwtUtils;
 
@@ -55,13 +53,13 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<String> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userService.existsByUsername(signUpRequest.getUsername())) {
+        if (userService.existsByLogin(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
                     .body("Error: Username is already taken!");
         }
         User user = User.builder()
-                .username(signUpRequest.getUsername())
+                .login(signUpRequest.getUsername())
                 .password(encoder.encode(signUpRequest.getPassword()))
                 .email(signUpRequest.getEmail())
                 .build();
@@ -69,5 +67,4 @@ public class AuthController {
 
         return ResponseEntity.ok("User registered successfully!");
     }
-
 }
