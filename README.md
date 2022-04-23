@@ -6,3 +6,4 @@ Definition of Done:
 * at least one code reviev accepted
 * branch merged to develop
 * meets the acceptance criteria
+* passes tests
