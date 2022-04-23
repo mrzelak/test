@@ -5,6 +5,7 @@ import application.Commons;
 import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = Commons.TASKS)
@@ -114,5 +115,24 @@ public class Task implements Completable {
 
     public void setPreviousTask(Task previousTask) {
         this.previousTask = previousTask;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return isFinished == task.isFinished &&
+                Objects.equals(id, task.id) &&
+                Objects.equals(name, task.name) &&
+                Objects.equals(description, task.description) &&
+                Objects.equals(date, task.date) &&
+                Objects.equals(previousTask, task.previousTask) &&
+                Objects.equals(subTasks, task.subTasks);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, date, isFinished, previousTask, subTasks);
     }
 }
