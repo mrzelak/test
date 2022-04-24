@@ -87,4 +87,12 @@ public class TaskServiceTest {
         Assert.assertEquals(task1.getName(), updateTask.getName());
         Assert.assertEquals(result.getName(), updateTask.getName());
     }
+
+    public void setTaskFinished_getId_taskIsChecked() {
+        //given
+        //when
+        var result = taskService.setTaskFinished(1L, true);
+        //then
+        Assert.assertTrue(task1.isFinished());
+    }
 }
