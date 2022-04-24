@@ -37,10 +37,9 @@ public class TaskService {
         task.setName(newTask.getName());
         task.setDescription(newTask.getDescription());
         task.setDate(newTask.getDate());
-        if(newTask.isFinished()) {
+        if (newTask.isFinished()) {
             task.setFinished();
-        }
-        else {
+        } else {
             task.setUnfinished();
         }
 
@@ -50,4 +49,15 @@ public class TaskService {
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
     }
+
+    public Task setTaskFinished(Long id, boolean checked) {
+        Task task = taskRepository.findById(id).get();
+        if (checked) {
+            task.setFinished();
+        } else {
+            task.setUnfinished();
+        }
+        return taskRepository.save(task);
+    }
+
 }

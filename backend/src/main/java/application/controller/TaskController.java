@@ -40,6 +40,11 @@ public class TaskController {
         return taskService.updateTask(id, newTask);
     }
 
+    @PutMapping("/task/{id}/check")
+    Task setTaskFinishedValue(@RequestBody boolean checked, @PathVariable Long id) {
+        return taskService.setTaskFinished(id, checked);
+    }
+
     @DeleteMapping("/task/{id}")
     public void deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
