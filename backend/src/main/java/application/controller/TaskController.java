@@ -9,6 +9,7 @@ import application.service.TaskService;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TaskController {
     @Autowired
     private TaskService taskService;
