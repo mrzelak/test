@@ -1,6 +1,6 @@
 import { forEach, groupBy, map, split, toInteger, uniqueId } from 'lodash';
 import { DATE_FORMAT, TIME_FORMAT } from 'consts/dateFormats';
-import { formatDate } from 'utils.js/dateUtils';
+import { formatDate } from 'utils/dateUtils';
 
 const getMappedTasks = (tasks) => {
   const groupedByDate = groupBy(tasks, (task) =>
