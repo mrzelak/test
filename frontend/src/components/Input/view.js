@@ -26,6 +26,9 @@ const InputView = ({ field, error, type, helperText, label, sx, ...props }) => (
         margin: 0,
       },
     }}
+    InputLabelProps={{
+      ...(type === 'datetime-local' && { shrink: true }),
+    }}
   />
 );
 
@@ -34,7 +37,7 @@ InputView.propTypes = {
   field: PropTypes.any,
   error: PropTypes.string,
   helperText: PropTypes.string,
-  type: PropTypes.oneOf(['text', 'password']),
+  type: PropTypes.oneOf(['text', 'password', 'datetime-local']),
   sx: PropTypes.objectOf(PropTypes.any),
 };
 
