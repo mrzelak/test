@@ -15,7 +15,7 @@ const DayTasks = ({ date, tasks, onTaskClick, onTaskCheck }) => {
           <TaskRow
             key={task.id}
             isDone={task.isDone}
-            onClick={() => onTaskClick(task.id)}
+            onClick={() => onTaskClick(task)}
             onCheck={() => onTaskCheck(task.id)}
             title={task.title}
             time={task.time}

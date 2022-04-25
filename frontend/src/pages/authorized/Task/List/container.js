@@ -7,9 +7,9 @@ import TaskLIstView from './view';
 const TaskListContainer = () => {
   const navigate = useNavigate();
 
-  const onTaskClick = (id) => {
-    console.log('Task clicked: ', id);
-    navigate(`/application/tasks/${id}`);
+  const onTaskClick = (task) => {
+    console.log('Task clicked: ', task.id);
+    navigate(`/application/tasks/${task.id}`, { state: { task: task } });
   };
 
   const onTaskCheck = (id) => {
