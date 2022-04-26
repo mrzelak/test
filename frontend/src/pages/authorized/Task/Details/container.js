@@ -1,10 +1,13 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import mockedTasks from 'mocks/tasks';
 import TaskDetailsView from './view';
 
 const TaskDetailsContainer = () => {
-  const { state } = useLocation();
-  const { task } = state;
+  let params = useParams();
+  const taskId = parseInt(params.taskId);
+
+  let task = mockedTasks.find((element) => element.id == taskId);
 
   return <TaskDetailsView task={task} />;
 };
