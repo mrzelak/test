@@ -1,6 +1,7 @@
 package application.service;
 
 import application.model.tasks.Task;
+import application.payroll.TaskNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import application.repository.TaskRepository;
@@ -21,26 +22,30 @@ public class TaskService {
         taskRepository.save(task);
     }
 
-    public Optional<Task> getTask(Long id) {
-        return taskRepository.findById(id);
+    public Task getTask(Long id) throws TaskNotFoundException {
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
     }
 
-    public Task addPreviousTask(Long id, Task previousTask) {
-        Task task = taskRepository.findById(id).get();
+    public Task addPreviousTask(Long id, Task previousTask) throws TaskNotFoundException {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
         task.addPreviousTask(previousTask);
 
         return taskRepository.save(task);
     }
 
-    public Task deletePreviousTask(Long id, Task previousTask) {
-        Task task = taskRepository.findById(id).get();
+    public Task deletePreviousTask(Long id, Task previousTask) throws TaskNotFoundException {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
         task.removePreviousTask(previousTask);
 
         return taskRepository.save(task);
     }
 
-    public Task updateTask(Long id, Task newTask) {
-        Task task = taskRepository.findById(id).get();
+    public Task updateTask(Long id, Task newTask) throws TaskNotFoundException {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
         task.setName(newTask.getName());
         task.setDescription(newTask.getDescription());
         task.setDate(newTask.getDate());
@@ -57,8 +62,9 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
-    public Task setTaskFinished(Long id, boolean checked) {
-        Task task = taskRepository.findById(id).get();
+    public Task setTaskFinished(Long id, boolean checked) throws TaskNotFoundException {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
         if (checked) {
             task.setFinished();
         } else {
