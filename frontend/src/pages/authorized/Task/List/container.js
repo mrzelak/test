@@ -12,7 +12,6 @@ const TaskListContainer = () => {
         const res = await axios.get(`${process.env.REACT_APP_API_URL}/task`);
         const tasks = res.data;
         setTasks(tasks);
-        console.log(tasks);
       } catch (err) {
         console.log(err);
       }
