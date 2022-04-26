@@ -1,20 +1,26 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Button from 'components/Button';
 import { taskShape } from 'templates/DayTasks/shapes';
 
 const TaskDetailsView = ({ task }) => {
   return (
     <Box>
-      <h1> Zadanie: {task.title} </h1>
-      <div>
-        <h2>Opis</h2>
-        <p>{task.description}</p>
-      </div>
-      <div>
-        <h2>Deadline</h2>
-        <p>{task.datetime}</p>
-      </div>
+      <Typography variant="h1" sx={{ marginBottom: 30 }}>
+        Zadanie: {task.title}
+      </Typography>
+      <Box sx={{ marginBottom: 30 }}>
+        <Typography variant="h2" sx={{ marginBottom: 20 }}>
+          Opis
+        </Typography>
+        <Typography variant="h3">{task.description}</Typography>
+      </Box>
+      <Box sx={{ marginBottom: 30 }}>
+        <Typography variant="h2" sx={{ marginBottom: 20 }}>
+          Deadline
+        </Typography>
+        <Typography variant="h3">{task.datetime}</Typography>
+      </Box>
 
       <Button
         onClick={() => console.log(`edit ${task.id}`)}
