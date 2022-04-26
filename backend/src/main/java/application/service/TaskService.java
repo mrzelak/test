@@ -25,9 +25,16 @@ public class TaskService {
         return taskRepository.findById(id);
     }
 
-    public Task setPreviousTask(Long id, Task previousTask) {
+    public Task addPreviousTask(Long id, Task previousTask) {
         Task task = taskRepository.findById(id).get();
-        task.setPreviousTask(previousTask);
+        task.addPreviousTask(previousTask);
+
+        return taskRepository.save(task);
+    }
+
+    public Task deletePreviousTask(Long id, Task previousTask) {
+        Task task = taskRepository.findById(id).get();
+        task.removePreviousTask(previousTask);
 
         return taskRepository.save(task);
     }
