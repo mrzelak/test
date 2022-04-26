@@ -33,7 +33,7 @@ public class TaskController {
     }
   
     @PutMapping("/task/{id}/previous")
-    Task setPreviousTask(@RequestBody Task previousTask, @PathVariable Long id) {
+    Task addPreviousTask(@RequestBody Task previousTask, @PathVariable Long id) {
             return taskService.addPreviousTask(id, previousTask);
     }
 
@@ -59,8 +59,6 @@ public class TaskController {
 
     @GetMapping("/task/{id}")
     public Task getTask(@PathVariable Long id) {
-
-        return taskService.getTask(id)
-                .orElseThrow(() -> new TaskNotFoundException(id));
+        return taskService.getTask(id);
     }
 }

@@ -132,12 +132,12 @@ public class Task implements Completable {
                 Objects.equals(name, task.name) &&
                 Objects.equals(description, task.description) &&
                 Objects.equals(date, task.date) &&
-                Objects.equals(previousTask, task.previousTask) &&
+                Objects.equals(previousTasks, task.previousTasks) &&
                 Objects.equals(subTasks, task.subTasks);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, date, isFinished, previousTask, subTasks);
+        return Objects.hash(id, name, description, date, isFinished, previousTasks, subTasks);
     }
 }
