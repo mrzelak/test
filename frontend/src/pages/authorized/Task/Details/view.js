@@ -9,7 +9,7 @@ const TaskDetailsView = ({ task }) => {
   return (
     <Box>
       <Typography variant="h1" sx={{ marginBottom: 30 }}>
-        Zadanie: {task.title}
+        Zadanie: {task.name}
       </Typography>
       <Box sx={{ marginBottom: 30 }}>
         <Typography variant="h2" sx={{ marginBottom: 20 }}>
@@ -22,7 +22,7 @@ const TaskDetailsView = ({ task }) => {
           Deadline
         </Typography>
         <Typography variant="h3">
-          {formatDate(task.datetime, DATE_FORMAT)}, {formatDate(task.datetime, TIME_FORMAT)}
+          {formatDate(task.date, DATE_FORMAT)}, {formatDate(task.date, TIME_FORMAT)}
         </Typography>
       </Box>
 
