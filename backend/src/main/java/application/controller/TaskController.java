@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.model.tasks.Task;
+import application.payroll.TaskNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -49,5 +50,12 @@ public class TaskController {
     @DeleteMapping("/task/{id}")
     public void deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
+    }
+
+    @GetMapping("/task/{id}")
+    public Task getTask(@PathVariable Long id) {
+
+        return taskService.getTask(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
     }
 }
