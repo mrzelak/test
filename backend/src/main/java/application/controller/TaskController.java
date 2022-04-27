@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import application.service.TaskService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -18,6 +19,11 @@ public class TaskController {
     @GetMapping("/task")
     public List<Task> findAll() {
         return taskService.findAll();
+    }
+
+    @GetMapping("/task/{id}")
+    public Optional<Task> findTask(@PathVariable Long id) {
+        return taskService.findById(id);
     }
 
 //    @GetMapping("/task/{username}")
