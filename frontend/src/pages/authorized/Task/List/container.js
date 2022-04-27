@@ -32,9 +32,10 @@ const TaskListContainer = () => {
     try {
       const taskIndex = findIndex(tasks, ({ id }) => id === taskId);
       const checked = !tasks[taskIndex].finished;
-      await axios.put(`${process.env.REACT_APP_API_URL}/task/${taskId}/check`, {
-        checked: `${checked}`,
-      });
+      const endpoint = checked ? 'check' : 'uncheck';
+      await axios.put(
+        `${process.env.REACT_APP_API_URL}/task/${taskId}/${endpoint}`
+      );
       const newTasks = [...tasks];
       newTasks[taskIndex].finished = checked;
       setTasks(newTasks);
