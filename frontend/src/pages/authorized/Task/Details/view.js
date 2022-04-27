@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import Button from 'components/Button';
-import { DATE_FORMAT, TIME_FORMAT } from 'consts/dateFormats';
+import { DATETIME_FORMAT } from 'consts/dateFormats';
 import { taskShape } from 'templates/DayTasks/shapes';
-import { formatDate } from 'utils.js/dateUtils';
+import { formatDate } from 'utils/dateUtils';
 
 const TaskDetailsView = ({ task }) => {
   return (
@@ -22,7 +22,7 @@ const TaskDetailsView = ({ task }) => {
           Deadline
         </Typography>
         <Typography variant="h3">
-          {formatDate(task.date, DATE_FORMAT)}, {formatDate(task.date, TIME_FORMAT)}
+          {formatDate(task.date, DATETIME_FORMAT)}
         </Typography>
       </Box>
 

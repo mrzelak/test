@@ -10,7 +10,7 @@ const TaskDetailsContainer = () => {
   const [task, setTask] = useState({
     name: '',
     description: '',
-    date: '2000-01-01T00:00:00.154Z',
+    date: null,
   });
 
   useEffect(() => {
