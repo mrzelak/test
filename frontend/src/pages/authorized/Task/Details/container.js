@@ -5,8 +5,8 @@ import TaskDetailsView from './view';
 
 const TaskDetailsContainer = () => {
   const navigate = useNavigate();
-  let params = useParams();
-  let taskId = parseInt(params.taskId);
+  const params = useParams();
+  const taskId = parseInt(params.taskId);
 
   const [task, setTask] = useState({
     name: '',
