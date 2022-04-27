@@ -1,14 +1,12 @@
 package application.controller;
 
 import application.model.tasks.Task;
-import application.payroll.TaskNotFoundException;
+import application.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import application.service.TaskService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -44,8 +42,13 @@ public class TaskController {
     }
 
     @PutMapping("/task/{id}/check")
-    Task setTaskFinishedValue(@RequestBody boolean checked, @PathVariable Long id) {
-        return taskService.setTaskFinished(id, checked);
+    Task setTaskFinishedValue(@PathVariable Long id) {
+        return taskService.setTaskFinished(id, true);
+    }
+
+    @PutMapping("/task/{id}/uncheck")
+    Task setTaskUnfinishedValue(@PathVariable Long id) {
+        return taskService.setTaskFinished(id, false);
     }
 
     @DeleteMapping("/task/{id}")
