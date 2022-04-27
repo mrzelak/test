@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import TaskDetailsView from './view';
 
 const TaskDetailsContainer = () => {
+  const navigate = useNavigate();
   let params = useParams();
   let taskId = parseInt(params.taskId);
 
@@ -29,7 +30,16 @@ const TaskDetailsContainer = () => {
     getTask();
   }, [taskId]);
 
-  return <TaskDetailsView task={task} />;
+  const onTaskDelete = async () => {
+    try {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/task/${taskId}`);
+      navigate('/application/tasks/list');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return <TaskDetailsView task={task} onTaskDelete={onTaskDelete} />;
 };
 
 export default TaskDetailsContainer;
