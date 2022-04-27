@@ -1,11 +1,13 @@
 import React from 'react';
+import { noop } from 'lodash';
+import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
 import Button from 'components/Button';
 import { DATETIME_FORMAT } from 'consts/dateFormats';
 import { taskShape } from 'templates/DayTasks/shapes';
 import { formatDate } from 'utils/dateUtils';
 
-const TaskDetailsView = ({ task }) => {
+const TaskDetailsView = ({ task, onTaskDelete }) => {
   return (
     <Box>
       <Typography variant="h1" sx={{ marginBottom: 30 }}>
@@ -33,10 +35,7 @@ const TaskDetailsView = ({ task }) => {
         Edytuj zadanie
       </Button>
 
-      <Button
-        onClick={() => console.log(`delete ${task.id}`)}
-        sx={{ marginTop: 20, marginLeft: 20 }}
-      >
+      <Button onClick={onTaskDelete} sx={{ marginTop: 20, marginLeft: 20 }}>
         Usuń zadanie
       </Button>
     </Box>
@@ -45,6 +44,11 @@ const TaskDetailsView = ({ task }) => {
 
 TaskDetailsView.propTypes = {
   task: taskShape,
+  onTaskDelete: PropTypes.func,
+};
+
+TaskDetailsView.defaultProps = {
+  onTaskDelete: noop,
 };
 
 export default TaskDetailsView;
