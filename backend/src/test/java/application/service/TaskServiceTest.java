@@ -1,6 +1,7 @@
 package application.service;
 
 import application.model.tasks.Task;
+import application.payroll.TaskNotFoundException;
 import application.repository.TaskRepository;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -57,25 +58,25 @@ public class TaskServiceTest {
         //when
         var result = taskService.getTask(1L);
         //then
-        Assert.assertEquals(Optional.of(task1), result);
+        Assert.assertEquals(task1, result);
     }
 
-    public void findById_taskDoesNotExist_returnNull() {
+    @Test(expectedExceptions = {TaskNotFoundException.class})
+    public void findById_taskDoesNotExist_throwsTaskNotFoundException() {
         //given
         when(taskRepository.findById(any(Long.class))).thenReturn(Optional.empty());
         //when
-        var result = taskService.getTask(1L);
         //then
-        Assert.assertEquals(Optional.empty(), result);
+        taskService.getTask(1L);
     }
 
     public void setPreviousTask_getTaskToBeSetAsPrevious_previousTaskIsSet() {
         //given
         when(taskRepository.save(task1)).thenReturn(task1);
         //when
-        var result = taskService.setPreviousTask(1L, task2);
+        var result = taskService.addPreviousTask(1L, task2);
         //then
-        Assert.assertEquals(result.getPreviousTask(), task2);
+        Assert.assertEquals(result.getPreviousTasks(), List.of(task2));
     }
 
     public void updateTask_getNewTaskValues_taskIsUpdated() {

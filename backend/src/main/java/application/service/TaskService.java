@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import application.repository.TaskRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -35,12 +34,12 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public Task deletePreviousTask(Long id, Task previousTask) throws TaskNotFoundException {
+    public void deletePreviousTask(Long id, Task previousTask) throws TaskNotFoundException {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
         task.removePreviousTask(previousTask);
 
-        return taskRepository.save(task);
+        taskRepository.save(task);
     }
 
     public Task updateTask(Long id, Task newTask) throws TaskNotFoundException {

@@ -21,16 +21,6 @@ public class TaskController {
         return taskService.findAll();
     }
 
-    @GetMapping("/task/{id}")
-    public Optional<Task> findTask(@PathVariable Long id) {
-        return taskService.findById(id);
-    }
-
-//    @GetMapping("/task/{username}")
-//    public List<Task> find(@PathVariable("username") String username) {
-//        return taskService.findUsertasks();
-//    }
-
     @PostMapping(path = "/task",
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public Task addTask(@RequestBody Task task) {
