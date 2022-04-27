@@ -7,7 +7,7 @@ import { DATETIME_FORMAT } from 'consts/dateFormats';
 import { taskShape } from 'templates/DayTasks/shapes';
 import { formatDate } from 'utils/dateUtils';
 
-const TaskDetailsView = ({ task, onTaskDelete }) => {
+const TaskDetailsView = ({ task, onTaskDelete, onTaskEdit }) => {
   return (
     <Box>
       <Typography variant="h1" sx={{ marginBottom: 30 }}>
@@ -28,10 +28,7 @@ const TaskDetailsView = ({ task, onTaskDelete }) => {
         </Typography>
       </Box>
 
-      <Button
-        onClick={() => console.log(`edit ${task.id}`)}
-        sx={{ marginTop: 20 }}
-      >
+      <Button onClick={onTaskEdit} sx={{ marginTop: 20 }}>
         Edytuj zadanie
       </Button>
 
@@ -45,10 +42,12 @@ const TaskDetailsView = ({ task, onTaskDelete }) => {
 TaskDetailsView.propTypes = {
   task: taskShape,
   onTaskDelete: PropTypes.func,
+  onTaskEdit: PropTypes.func,
 };
 
 TaskDetailsView.defaultProps = {
   onTaskDelete: noop,
+  onTaskEdit: noop,
 };
 
 export default TaskDetailsView;

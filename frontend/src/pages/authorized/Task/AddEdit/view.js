@@ -19,6 +19,7 @@ const TaskAddEdit = ({ onSubmit, initialValues }) => {
       validationSchema={validationSchema}
       validateOnBlur={false}
       validateOnChange={false}
+      enableReinitialize
     >
       <Form>
         <Box
@@ -51,8 +52,9 @@ const TaskAddEdit = ({ onSubmit, initialValues }) => {
 TaskAddEdit.propTypes = {
   onSubmit: PropTypes.func,
   initialValues: PropTypes.shape({
-    test1: PropTypes.string,
-    test2: PropTypes.string,
+    name: PropTypes.string,
+    description: PropTypes.string,
+    date: PropTypes.string,
   }),
 };
 

@@ -22,6 +22,7 @@ const Routing = () => (
         <Route path="add" element={<TaskAddEdit />} />
         <Route path="list" element={<TaskList />} />
         <Route path=":taskId" element={<TaskDetails />} />
+        <Route path="edit/:taskId" element={<TaskAddEdit isEdit />} />
       </Route>
     </Route>
 
