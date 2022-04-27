@@ -1,15 +1,12 @@
 package application.controller;
 
 import application.model.tasks.Task;
-import application.payroll.TaskNotFoundException;
+import application.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import application.service.TaskService;
 
-import java.sql.SQLOutput;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
