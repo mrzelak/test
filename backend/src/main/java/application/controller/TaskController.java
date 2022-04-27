@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import application.service.TaskService;
 
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,8 +45,13 @@ public class TaskController {
     }
 
     @PutMapping("/task/{id}/check")
-    Task setTaskFinishedValue(@RequestBody boolean checked, @PathVariable Long id) {
-        return taskService.setTaskFinished(id, checked);
+    Task setTaskFinishedValue(@PathVariable Long id) {
+        return taskService.setTaskFinished(id, true);
+    }
+
+    @PutMapping("/task/{id}/uncheck")
+    Task setTaskUnfinishedValue(@PathVariable Long id) {
+        return taskService.setTaskFinished(id, false);
     }
 
     @DeleteMapping("/task/{id}")
