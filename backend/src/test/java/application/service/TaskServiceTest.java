@@ -55,7 +55,7 @@ public class TaskServiceTest {
     public void findById_taskExists_returnTask() {
         //given
         //when
-        var result = taskService.findById(1L);
+        var result = taskService.getTask(1L);
         //then
         Assert.assertEquals(Optional.of(task1), result);
     }
@@ -64,7 +64,7 @@ public class TaskServiceTest {
         //given
         when(taskRepository.findById(any(Long.class))).thenReturn(Optional.empty());
         //when
-        var result = taskService.findById(1L);
+        var result = taskService.getTask(1L);
         //then
         Assert.assertEquals(Optional.empty(), result);
     }

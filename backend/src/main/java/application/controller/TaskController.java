@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.model.tasks.Task;
+import application.payroll.TaskNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -38,8 +39,13 @@ public class TaskController {
     }
   
     @PutMapping("/task/{id}/previous")
-    Task setPreviousTask(@RequestBody Task previousTask, @PathVariable Long id) {
-            return taskService.setPreviousTask(id, previousTask);
+    Task addPreviousTask(@RequestBody Task previousTask, @PathVariable Long id) {
+            return taskService.addPreviousTask(id, previousTask);
+    }
+
+    @DeleteMapping("/task/{id}/previous")
+    public void deletePreviousTask(@RequestBody Task previousTask, @PathVariable Long id) {
+        taskService.deletePreviousTask(id, previousTask);
     }
 
     @PutMapping("/task/{id}")
@@ -55,5 +61,10 @@ public class TaskController {
     @DeleteMapping("/task/{id}")
     public void deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
+    }
+
+    @GetMapping("/task/{id}")
+    public Task getTask(@PathVariable Long id) {
+        return taskService.getTask(id);
     }
 }

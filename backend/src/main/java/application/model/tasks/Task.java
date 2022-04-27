@@ -3,6 +3,7 @@ package application.model.tasks;
 import application.Commons;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -21,10 +22,10 @@ public class Task implements Completable {
     //    private String deadline;
     private boolean isFinished;
 
-    @OneToOne(
+    @OneToMany(
             cascade = CascadeType.ALL
     )
-    private Task previousTask;
+    private List<Task> previousTasks = new ArrayList<>();
 
     @OneToMany(
             cascade = CascadeType.ALL,
@@ -109,12 +110,16 @@ public class Task implements Completable {
         }
     }
 
-    public Task getPreviousTask() {
-        return previousTask;
+    public List<Task> getPreviousTasks() {
+        return previousTasks;
     }
 
-    public void setPreviousTask(Task previousTask) {
-        this.previousTask = previousTask;
+    public void addPreviousTask(Task previousTask) {
+        this.previousTasks.add(previousTask);
+    }
+
+    public void removePreviousTask(Task previousTask) {
+        this.previousTasks.remove(previousTask);
     }
 
     @Override
@@ -127,12 +132,12 @@ public class Task implements Completable {
                 Objects.equals(name, task.name) &&
                 Objects.equals(description, task.description) &&
                 Objects.equals(date, task.date) &&
-                Objects.equals(previousTask, task.previousTask) &&
+                Objects.equals(previousTasks, task.previousTasks) &&
                 Objects.equals(subTasks, task.subTasks);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, date, isFinished, previousTask, subTasks);
+        return Objects.hash(id, name, description, date, isFinished, previousTasks, subTasks);
     }
 }

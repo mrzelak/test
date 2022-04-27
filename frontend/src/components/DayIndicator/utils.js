@@ -1,7 +1,7 @@
 import addDays from 'date-fns/addDays';
 import isToday from 'date-fns/isToday';
 import { DATE_FORMAT } from 'consts/dateFormats';
-import { formatDate } from 'utils.js/dateUtils';
+import { formatDate } from 'utils/dateUtils';
 
 const getDateText = (dateString) => {
   const date = new Date(dateString);
