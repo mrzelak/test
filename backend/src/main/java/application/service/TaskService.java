@@ -1,6 +1,7 @@
 package application.service;
 
 import application.model.tasks.Task;
+import application.payroll.TaskCanNotBeFinishedException;
 import application.payroll.TaskNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,11 +62,15 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
-    public Task setTaskFinished(Long id, boolean checked) throws TaskNotFoundException {
+    public Task setTaskFinished(Long id, boolean checked) throws TaskNotFoundException, TaskCanNotBeFinishedException {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
         if (checked) {
-            task.setFinished();
+            if (task.canBeFinished()) {
+                task.setFinished();
+            } else {
+                throw new TaskCanNotBeFinishedException(id);
+            }
         } else {
             task.setUnfinished();
         }
