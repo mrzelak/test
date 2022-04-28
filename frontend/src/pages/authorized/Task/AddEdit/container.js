@@ -3,6 +3,8 @@ import axios from 'axios';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import { useNavigate, useParams } from 'react-router-dom';
+import { INPUT_FORMAT } from 'consts/dateFormats';
+import { formatDate } from 'utils/dateUtils';
 import TaskAddEditView from './view';
 
 const TaskAddEditContainer = ({ isEdit }) => {
@@ -29,7 +31,9 @@ const TaskAddEditContainer = ({ isEdit }) => {
       }
     };
 
-    getTask();
+    if (isEdit) {
+      getTask();
+    }
   }, [taskId]);
 
   const onSubmit = async (values) => {
@@ -55,16 +59,22 @@ const TaskAddEditContainer = ({ isEdit }) => {
   };
 
   const initialValues = useMemo(() => {
-    const date = get(task, 'date', null);
+    const date = formatDate(get(task, 'date', ''), INPUT_FORMAT);
 
     return {
       name: get(task, 'name', ''),
       description: get(task, 'description', ''),
-      date: date,
+      date,
     };
   }, [task]);
 
-  return <TaskAddEditView onSubmit={onSubmit} initialValues={initialValues} />;
+  return (
+    <TaskAddEditView
+      isEdit={isEdit}
+      onSubmit={onSubmit}
+      initialValues={initialValues}
+    />
+  );
 };
 
 TaskAddEditContainer.propTypes = {
