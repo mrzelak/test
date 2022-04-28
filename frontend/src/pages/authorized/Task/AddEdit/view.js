@@ -7,7 +7,7 @@ import Button from 'components/Button';
 import Input from 'components/Input';
 import validationSchema from './validation';
 
-const TaskAddEdit = ({ onSubmit, initialValues }) => {
+const TaskAddEdit = ({ isEdit, onSubmit, initialValues }) => {
   const inputStyle = {
     margin: (theme) => theme.spacing(10, 0),
   };
@@ -19,6 +19,7 @@ const TaskAddEdit = ({ onSubmit, initialValues }) => {
       validationSchema={validationSchema}
       validateOnBlur={false}
       validateOnChange={false}
+      enableReinitialize
     >
       <Form>
         <Box
@@ -40,7 +41,7 @@ const TaskAddEdit = ({ onSubmit, initialValues }) => {
             sx={inputStyle}
           />
           <Button submit sx={{ margin: 'auto', marginTop: 20 }}>
-            Utwórz
+            {isEdit ? 'Zatwierdź' : 'Utwórz'}
           </Button>
         </Box>
       </Form>
@@ -49,16 +50,19 @@ const TaskAddEdit = ({ onSubmit, initialValues }) => {
 };
 
 TaskAddEdit.propTypes = {
+  isEdit: PropTypes.bool,
   onSubmit: PropTypes.func,
   initialValues: PropTypes.shape({
-    test1: PropTypes.string,
-    test2: PropTypes.string,
+    name: PropTypes.string,
+    description: PropTypes.string,
+    date: PropTypes.string,
   }),
 };
 
 TaskAddEdit.defaultProps = {
   onSubmit: noop,
   initialValues: {},
+  isEdit: false,
 };
 
 export default TaskAddEdit;

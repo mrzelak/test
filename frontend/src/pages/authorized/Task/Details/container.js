@@ -39,7 +39,17 @@ const TaskDetailsContainer = () => {
     }
   };
 
-  return <TaskDetailsView task={task} onTaskDelete={onTaskDelete} />;
+  const onTaskEdit = async () => {
+    navigate(`/application/tasks/edit/${taskId}`);
+  };
+
+  return (
+    <TaskDetailsView
+      task={task}
+      onTaskDelete={onTaskDelete}
+      onTaskEdit={onTaskEdit}
+    />
+  );
 };
 
 export default TaskDetailsContainer;
