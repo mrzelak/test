@@ -24,7 +24,7 @@ const DayTasks = ({ date, tasks, onTaskClick, onTaskCheck }) => {
           />
         ))}
       </Box>
-      <Box sx={{ marginTop: 15 }}>
+      <Box sx={{ marginTop: 15, width: 150 }}>
         <DayIndicator date={date} />
       </Box>
     </Box>
