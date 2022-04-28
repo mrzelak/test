@@ -18,7 +18,7 @@ const TaskRow = ({ isDone, title, time, severity, onClick, onCheck, sx }) => {
   return (
     <Box sx={{ ...styles.root, ...sx }} onClick={onClick}>
       <Check checked={isDone} onClick={handleCheck} sx={{ marginRight: 20 }} />
-      <Typography variant="h3" sx={styles.title}>
+      <Typography variant="h3" sx={styles.title} noWrap>
         {title}
       </Typography>
       <Box
@@ -27,7 +27,7 @@ const TaskRow = ({ isDone, title, time, severity, onClick, onCheck, sx }) => {
           ...(severity === 'error' && styles.error),
         }}
       >
-        <Typography variant="h4" sx={styles.title}>
+        <Typography variant="h4" noWrap>
           {time}
         </Typography>
       </Box>
