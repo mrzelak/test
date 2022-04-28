@@ -1,6 +1,8 @@
  - PORT=3333 in .env file will change default port for this application
 # Quick Start
- - create .env file with: PORT=3333
+ - create .env file with: 
+   - PORT=3333
+   - REACT_APP_API_URL=http://localhost:8080
  - npm i
  - npm start / npm run storybook
 
