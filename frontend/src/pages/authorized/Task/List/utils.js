@@ -32,11 +32,13 @@ const getMappedTasks = (tasks) => {
   const result = [];
   forEach(groupedByDate, (value, key) => {
     const [day, month, year] = split(key, '-');
-    const tasks = map(value, (task) => ({
+    let tasks = map(value, (task) => ({
       ...task,
       time: formatDate(task.date, TIME_FORMAT),
       severity: getSeverity(task.date),
     }));
+
+    tasks = sortBy(tasks, 'time');
 
     result.push({
       id: uniqueId(),
