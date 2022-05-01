@@ -140,4 +140,13 @@ public class Task implements Completable {
     public int hashCode() {
         return Objects.hash(id, name, description, date, isFinished, previousTasks, subTasks);
     }
+
+    public boolean canBeFinished() {
+        for(Task previousTask : previousTasks) {
+            if (!previousTask.isFinished) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
