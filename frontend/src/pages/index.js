@@ -3,10 +3,11 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import AuthorizedLayout from 'layouts/AuthorizedLayout';
 import PublicLayout from 'layouts/PublicLayout';
 import TaskAddEdit from 'pages/authorized/Task/AddEdit';
+import TaskDetails from 'pages/authorized/Task/Details';
 import TaskList from 'pages/authorized/Task/List';
 import Login from 'pages/public/Login';
 
-const DEFAULT_ROUTE = '/public/login';
+const DEFAULT_ROUTE = '/application/tasks/list';
 
 const Routing = () => (
   <Routes>
@@ -20,6 +21,8 @@ const Routing = () => (
       <Route path="tasks">
         <Route path="add" element={<TaskAddEdit />} />
         <Route path="list" element={<TaskList />} />
+        <Route path=":taskId" element={<TaskDetails />} />
+        <Route path="edit/:taskId" element={<TaskAddEdit isEdit />} />
       </Route>
     </Route>
 

@@ -2,6 +2,7 @@ export default (isDone) => ({
   root: {
     width: '100%',
     minWidth: 400,
+    maxWidth: 800,
     height: 50,
     borderRadius: 10,
     display: 'flex',
@@ -16,6 +17,7 @@ export default (isDone) => ({
   },
   title: {
     flex: 1,
+    paddingRight: 20,
   },
   warning: { color: 'warning.main' },
   error: { color: 'error.main' },

@@ -1,14 +1,15 @@
 package application.controller;
 
 import application.model.tasks.Task;
+import application.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import application.service.TaskService;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TaskController {
     @Autowired
     private TaskService taskService;
@@ -18,11 +19,6 @@ public class TaskController {
         return taskService.findAll();
     }
 
-//    @GetMapping("/task/{username}")
-//    public List<Task> find(@PathVariable("username") String username) {
-//        return taskService.findUsertasks();
-//    }
-
     @PostMapping(path = "/task",
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public Task addTask(@RequestBody Task task) {
@@ -31,8 +27,13 @@ public class TaskController {
     }
   
     @PutMapping("/task/{id}/previous")
-    Task setPreviousTask(@RequestBody Task previousTask, @PathVariable Long id) {
-            return taskService.setPreviousTask(id, previousTask);
+    Task addPreviousTask(@RequestBody Task previousTask, @PathVariable Long id) {
+            return taskService.addPreviousTask(id, previousTask);
+    }
+
+    @DeleteMapping("/task/{id}/previous")
+    public void deletePreviousTask(@RequestBody Task previousTask, @PathVariable Long id) {
+        taskService.deletePreviousTask(id, previousTask);
     }
 
     @PutMapping("/task/{id}")
@@ -40,8 +41,31 @@ public class TaskController {
         return taskService.updateTask(id, newTask);
     }
 
+    @PutMapping("/task/{id}/check")
+    Task setTaskFinishedValue(@PathVariable Long id) {
+        return taskService.setTaskFinished(id, true);
+    }
+
+    @PutMapping("/task/{id}/uncheck")
+    Task setTaskUnfinishedValue(@PathVariable Long id) {
+        return taskService.setTaskFinished(id, false);
+    }
+
     @DeleteMapping("/task/{id}")
     public void deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
     }
+
+    @GetMapping("/task/{id}")
+    public Task getTask(@PathVariable Long id) {
+        return taskService.getTask(id);
+    }
+
+    @GetMapping("/task/{startDate}/{endDate}")
+    public List<Task> getTaskInGivenPeriodOfTime(@PathVariable String startDate, @PathVariable  String endDate) {
+        return  taskService.getTasksInGivenPeriodOfTime(startDate, endDate);
+
+    }
+    
 }
+

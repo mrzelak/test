@@ -10,7 +10,7 @@ const TaskListView = ({ tasks, onTaskClick, onTaskCheck }) => {
   return (
     <Box>
       {map(tasks, (entry) => (
-        <Box sx={{ marginBottom: 20 }} key={entry.id}>
+        <Box sx={{ marginBottom: 40 }} key={entry.id}>
           <DayTasks
             date={entry.date}
             tasks={entry.tasks}

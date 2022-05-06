@@ -14,17 +14,17 @@ const DayTasks = ({ date, tasks, onTaskClick, onTaskCheck }) => {
         {map(tasks, (task) => (
           <TaskRow
             key={task.id}
-            isDone={task.isDone}
+            isDone={task.finished}
             onClick={() => onTaskClick(task.id)}
             onCheck={() => onTaskCheck(task.id)}
-            title={task.title}
+            title={task.name}
             time={task.time}
             severity={task.severity}
             sx={{ marginBottom: 5 }}
           />
         ))}
       </Box>
-      <Box sx={{ marginTop: 15 }}>
+      <Box sx={{ marginTop: 15, width: 150 }}>
         <DayIndicator date={date} />
       </Box>
     </Box>

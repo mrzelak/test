@@ -11,4 +11,4 @@ const taskShape = PropTypes.shape({
 
 const tasksShape = PropTypes.arrayOf(taskShape);
 
-export { tasksShape };
+export { taskShape, tasksShape };

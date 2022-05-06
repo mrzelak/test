@@ -1,12 +1,13 @@
 package application.service;
 
 import application.model.tasks.Task;
+import application.payroll.TaskCanNotBeFinishedException;
+import application.payroll.TaskNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import application.repository.TaskRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -21,26 +22,36 @@ public class TaskService {
         taskRepository.save(task);
     }
 
-    public Optional<Task> findById(Long id) {
-        return taskRepository.findById(id);
+    public Task getTask(Long id) throws TaskNotFoundException {
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
     }
 
-    public Task setPreviousTask(Long id, Task previousTask) {
-        Task task = taskRepository.findById(id).get();
-        task.setPreviousTask(previousTask);
+    public Task addPreviousTask(Long id, Task previousTask) throws TaskNotFoundException {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
+        task.addPreviousTask(previousTask);
 
         return taskRepository.save(task);
     }
 
-    public Task updateTask(Long id, Task newTask) {
-        Task task = taskRepository.findById(id).get();
+    public void deletePreviousTask(Long id, Task previousTask) throws TaskNotFoundException {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
+        task.removePreviousTask(previousTask);
+
+        taskRepository.save(task);
+    }
+
+    public Task updateTask(Long id, Task newTask) throws TaskNotFoundException {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
         task.setName(newTask.getName());
         task.setDescription(newTask.getDescription());
         task.setDate(newTask.getDate());
-        if(newTask.isFinished()) {
+        if (newTask.isFinished()) {
             task.setFinished();
-        }
-        else {
+        } else {
             task.setUnfinished();
         }
 
@@ -50,4 +61,24 @@ public class TaskService {
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
     }
+
+    public Task setTaskFinished(Long id, boolean checked) throws TaskNotFoundException, TaskCanNotBeFinishedException {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
+        if (checked) {
+            if (task.canBeFinished()) {
+                task.setFinished();
+            } else {
+                throw new TaskCanNotBeFinishedException(id);
+            }
+        } else {
+            task.setUnfinished();
+        }
+        return taskRepository.save(task);
+    }
+
+    public List<Task> getTasksInGivenPeriodOfTime(String startDate, String endDate) {
+        return taskRepository.getTasksByTime(startDate, endDate);
+    }
 }
+

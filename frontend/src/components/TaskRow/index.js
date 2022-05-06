@@ -1,6 +1,7 @@
 import React from 'react';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
+import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Check from 'components/Check';
 import { severityShape } from './shapes';
@@ -16,15 +17,19 @@ const TaskRow = ({ isDone, title, time, severity, onClick, onCheck, sx }) => {
 
   return (
     <Box sx={{ ...styles.root, ...sx }} onClick={onClick}>
-      <Check checked={isDone} onClick={handleCheck} sx={{ marginRight: 10 }} />
-      <Box sx={styles.title}>{title}</Box>
+      <Check checked={isDone} onClick={handleCheck} sx={{ marginRight: 20 }} />
+      <Typography variant="h3" sx={styles.title} noWrap>
+        {title}
+      </Typography>
       <Box
         sx={{
           ...(severity === 'warning' && styles.warning),
           ...(severity === 'error' && styles.error),
         }}
       >
-        {time}
+        <Typography variant="h4" noWrap>
+          {time}
+        </Typography>
       </Box>
     </Box>
   );
