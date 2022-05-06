@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { findIndex } from 'lodash';
 import { useNavigate } from 'react-router-dom';
+import useUnauthorizedHandler from 'hooks/useUnauthorizedHandler';
 import { getMappedTasks } from './utils';
 import TaskLIstView from './view';
 
 const TaskListContainer = () => {
   const navigate = useNavigate();
+  const { handleUnauthorized } = useUnauthorizedHandler();
+
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -16,7 +19,7 @@ const TaskListContainer = () => {
         const tasks = res.data;
         setTasks(tasks);
       } catch (err) {
-        console.log(err);
+        handleUnauthorized(err);
       }
     };
 
@@ -40,7 +43,7 @@ const TaskListContainer = () => {
       newTasks[taskIndex].finished = checked;
       setTasks(newTasks);
     } catch (err) {
-      console.log(err);
+      handleUnauthorized(err);
     }
   };
 

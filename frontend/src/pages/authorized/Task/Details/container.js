@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import useUnauthorizedHandler from 'hooks/useUnauthorizedHandler';
 import TaskDetailsView from './view';
 
 const TaskDetailsContainer = () => {
   const navigate = useNavigate();
   const params = useParams();
+  const { handleUnauthorized } = useUnauthorizedHandler();
   const taskId = parseInt(params.taskId);
 
   const [task, setTask] = useState({
@@ -23,7 +25,7 @@ const TaskDetailsContainer = () => {
         const task = res.data;
         setTask(task);
       } catch (err) {
-        console.log(err);
+        handleUnauthorized(err);
       }
     };
 
@@ -35,7 +37,7 @@ const TaskDetailsContainer = () => {
       await axios.delete(`${process.env.REACT_APP_API_URL}/task/${taskId}`);
       navigate('/application/tasks/list');
     } catch (err) {
-      console.log(err);
+      handleUnauthorized(err);
     }
   };
 
