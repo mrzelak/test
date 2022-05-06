@@ -1,7 +1,7 @@
 export default {
   root: {
-    width: 100,
-    height: 100,
+    width: 130,
+    height: 130,
     borderRadius: 10,
     border: (theme) =>
       `${theme.spacing(1)} solid ${theme.palette.neutral.main}`,
@@ -13,6 +13,7 @@ export default {
     alignItems: 'center',
     cursor: 'pointer',
     boxSizing: 'border-box',
+    rowGap: 10,
   },
   icon: {
     width: 50,
