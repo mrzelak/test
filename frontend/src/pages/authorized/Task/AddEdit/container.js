@@ -43,12 +43,14 @@ const TaskAddEditContainer = ({ isEdit }) => {
           name: values.name,
           description: values.description,
           date: new Date(values.date),
+          subTasks: values.subTasks,
         });
       } else {
         await axios.post(`${process.env.REACT_APP_API_URL}/task`, {
           name: values.name,
           description: values.description,
           date: new Date(values.date),
+          subTasks: values.subTasks,
         });
       }
 
@@ -65,6 +67,7 @@ const TaskAddEditContainer = ({ isEdit }) => {
       name: get(task, 'name', ''),
       description: get(task, 'description', ''),
       date,
+      subTasks: get(task, 'subTasks', []),
     };
   }, [task]);
 
