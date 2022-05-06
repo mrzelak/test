@@ -13,16 +13,16 @@ const LoginView = ({ onSubmit }) => {
 
   return (
     <Box sx={{ width: 500 }}>
-      <Formik initialValues={{ name: '', password: '' }} onSubmit={onSubmit}>
+      <Formik initialValues={{ username: '', password: '' }} onSubmit={onSubmit}>
         <Form>
           <Typography variant="h1" sx={spacing}>
             Logowanie
           </Typography>
-          <Input name="name" label="Name" sx={spacing} />
+          <Input name="username" label="Nick" sx={spacing} />
           <Input
             type="password"
             name="password"
-            label="Password"
+            label="Hasło"
             sx={spacing}
           />
           <Button submit>Zaloguj</Button>

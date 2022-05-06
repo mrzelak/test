@@ -4,6 +4,7 @@ import { findIndex } from 'lodash';
 import { useNavigate } from 'react-router-dom';
 import { getMappedTasks } from './utils';
 import TaskLIstView from './view';
+import UserManager from 'managers/UserManager';
 
 const TaskListContainer = () => {
   const navigate = useNavigate();
@@ -12,7 +13,9 @@ const TaskListContainer = () => {
   useEffect(() => {
     const getTasks = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/task`);
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}/task`,
+          { headers: { Authorization: UserManager.getToken() } });
         const tasks = res.data;
         setTasks(tasks);
       } catch (err) {
