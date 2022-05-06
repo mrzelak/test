@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import useUnauthorizedHandler from 'hooks/useUnauthorizedHandler';
 import UserManager from 'managers/UserManager';
 import LoginView from './view';
 
 const LoginContainer = () => {
   const navigate = useNavigate();
+  const { handleUnauthorized } = useUnauthorizedHandler();
+
+  useEffect(() => {
+    if (UserManager.isLoggedIn()) {
+      navigate('/application/tasks/list');
+    }
+  }, []);
 
   const onSubmit = async (values) => {
     try {
@@ -15,9 +23,10 @@ const LoginContainer = () => {
       );
       const bearerToken = `${res.data.type} ${res.data.token}`;
       UserManager.setToken(bearerToken);
-      navigate('application/tasks/list');
+      UserManager.setUsername(res.data.username);
+      navigate('/application/tasks/list');
     } catch (err) {
-      console.log(err);
+      handleUnauthorized(err);
     }
   };
 
