@@ -5,9 +5,11 @@ import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
 import Button from 'components/Button';
 import Input from 'components/Input';
+import Select from 'components/Select';
+import { optionsShape } from 'components/Select/shapes';
 import validationSchema from './validation';
 
-const TaskAddEdit = ({ isEdit, onSubmit, initialValues }) => {
+const TaskAddEdit = ({ isEdit, onSubmit, availableTasks, initialValues }) => {
   const inputStyle = {
     margin: (theme) => theme.spacing(10, 0),
   };
@@ -40,6 +42,12 @@ const TaskAddEdit = ({ isEdit, onSubmit, initialValues }) => {
             type="datetime-local"
             sx={inputStyle}
           />
+          <Select
+            name="previousTask"
+            label="Zadanie poprzedzające"
+            options={availableTasks}
+            sx={inputStyle}
+          />
           <Button submit sx={{ margin: 'auto', marginTop: 20 }}>
             {isEdit ? 'Zatwierdź' : 'Utwórz'}
           </Button>
@@ -57,12 +65,14 @@ TaskAddEdit.propTypes = {
     description: PropTypes.string,
     date: PropTypes.string,
   }),
+  availableTasks: optionsShape,
 };
 
 TaskAddEdit.defaultProps = {
   onSubmit: noop,
   initialValues: {},
   isEdit: false,
+  availableTasks: [],
 };
 
 export default TaskAddEdit;
