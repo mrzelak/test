@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { useNavigate, useParams } from 'react-router-dom';
 import { INPUT_FORMAT } from 'consts/dateFormats';
 import { formatDate } from 'utils/dateUtils';
+import { initialTaskData } from './consts';
 import TaskAddEditView from './view';
 
 const TaskAddEditContainer = ({ isEdit }) => {
@@ -12,11 +13,13 @@ const TaskAddEditContainer = ({ isEdit }) => {
   const params = useParams();
   const taskId = parseInt(params.taskId);
 
-  const [task, setTask] = useState({
-    name: '',
-    description: '',
-    date: null,
-  });
+  const [task, setTask] = useState(initialTaskData);
+
+  useEffect(() => {
+    if (!isEdit) {
+      setTask(initialTaskData);
+    }
+  }, [isEdit]);
 
   useEffect(() => {
     const getTask = async () => {
@@ -66,7 +69,7 @@ const TaskAddEditContainer = ({ isEdit }) => {
       description: get(task, 'description', ''),
       date,
     };
-  }, [task]);
+  }, [task, isEdit]);
 
   return (
     <TaskAddEditView
