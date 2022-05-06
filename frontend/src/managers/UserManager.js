@@ -1,9 +1,14 @@
+import axios from 'axios';
+
 class UserManager {
   username = null;
   token = null;
 
   setToken(token) {
     this.token = token;
+    axios.defaults.headers.common = {
+      Authorization: token,
+    };
   }
 
   setUsername(username) {

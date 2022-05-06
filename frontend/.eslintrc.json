@@ -20,7 +20,12 @@
   },
   "plugins": ["react", "prettier"],
   "rules": {
-    "code": 80,
+    "max-len": [
+      "warn", 
+      { 
+        "code": 80
+      }
+    ],
     "prettier/prettier": [
       "warn",
       {

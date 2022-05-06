@@ -1,19 +1,20 @@
 import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import LoginView from './view';
 import UserManager from 'managers/UserManager';
+import LoginView from './view';
 
 const LoginContainer = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (values) => {
     try {
-      await axios.post(
+      const res = await axios.post(
         `${process.env.REACT_APP_API_URL}/authentication/signin`,
         values
       );
-      UserManager.setToken(`${res.data.type} ${res.data.token}`);
+      const bearerToken = `${res.data.type} ${res.data.token}`;
+      UserManager.setToken(bearerToken);
       navigate('application/tasks/list');
     } catch (err) {
       console.log(err);
