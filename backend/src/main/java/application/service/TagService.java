@@ -39,8 +39,6 @@ public class TagService {
     }
 
     public List<Tag> getTagsByQuery(String query) {
-        return tagRepository.findAll().stream()
-                .filter(tag -> tag.getTagName().contains(query))
-                .toList();
+        return tagRepository.findByTagNameContaining(query);
     }
 }
