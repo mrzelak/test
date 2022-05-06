@@ -31,21 +31,22 @@ public class Task implements Completable {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<SubTask> subTasks = null;
+    private List<SubTask> subTasks;
 
     public Task() {
     }
 
-    public Task(Long id, String name, String description, String date) {
+    public Task(Long id, String name, String description, String date, List<SubTask> subTasks) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.date = date;
         this.isFinished = false;
+        this.subTasks = subTasks;
     }
 
     public Task(Long id, String name, String date) {
-        this(id, name, "no description", date);
+        this(id, name, "no description", date, new ArrayList<>());
     }
 
     public Long getId() {
