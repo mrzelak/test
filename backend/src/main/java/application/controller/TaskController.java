@@ -60,4 +60,12 @@ public class TaskController {
     public Task getTask(@PathVariable Long id) {
         return taskService.getTask(id);
     }
+
+    @GetMapping("/task/{startDate}/{endDate}")
+    public List<Task> getTaskInGivenPeriodOfTime(@PathVariable String startDate, @PathVariable  String endDate) {
+        return  taskService.getTasksInGivenPeriodOfTime(startDate, endDate);
+
+    }
+    
 }
+
