@@ -66,7 +66,6 @@ public class TaskController {
         return  taskService.getTasksInGivenPeriodOfTime(startDate, endDate);
 
     }
-
-
+    
 }
 
