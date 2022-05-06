@@ -77,4 +77,9 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
+    public List<Task> getTasksInGivenPeriodOfTime(String startDate, String endDate) {
+        List<Task> tasks = taskRepository.getTasksByTime(startDate, endDate);
+        return tasks;
+    }
 }
+
