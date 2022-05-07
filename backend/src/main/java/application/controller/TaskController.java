@@ -1,5 +1,6 @@
 package application.controller;
 
+import application.model.tag.Tag;
 import application.model.tasks.Task;
 import application.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,16 @@ public class TaskController {
     public List<Task> getTaskInGivenPeriodOfTime(@PathVariable String startDate, @PathVariable  String endDate) {
         return  taskService.getTasksInGivenPeriodOfTime(startDate, endDate);
 
+    }
+
+    @PutMapping("/task/{id}/tags")
+    Task addTag(@RequestBody Tag tag, @PathVariable Long id) {
+        return taskService.addTag(id, tag);
+    }
+
+    @DeleteMapping("/task/{id}/tags")
+    public void deleteTag(@RequestBody Tag tag, @PathVariable Long id) {
+        taskService.deleteTag(id, tag);
     }
     
 }
