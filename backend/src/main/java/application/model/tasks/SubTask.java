@@ -72,7 +72,7 @@ public class SubTask implements Completable {
 
     @Override
     public void setUnfinished() {
-        isFinished = true;
+        isFinished = false;
     }
 
     public Task getMainTask() {
