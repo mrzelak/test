@@ -2,4 +2,10 @@ const initialSubTaskData = {
   name: '',
 };
 
-export { initialSubTaskData };
+const initialTaskData = {
+  name: '',
+  description: '',
+  date: null,
+};
+
+export { initialTaskData, initialSubTaskData };
