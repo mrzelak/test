@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
-import { get } from 'lodash';
+import { get, map } from 'lodash';
 import PropTypes from 'prop-types';
 import { useNavigate, useParams } from 'react-router-dom';
 import { INPUT_FORMAT } from 'consts/dateFormats';
@@ -42,19 +42,18 @@ const TaskAddEditContainer = ({ isEdit }) => {
   }, [taskId]);
 
   const onSubmit = async (values) => {
+    const data = {
+      ...values,
+      date: new Date(values.date),
+    };
     try {
       if (isEdit) {
-        await axios.put(`${process.env.REACT_APP_API_URL}/task/${taskId}`, {
-          name: values.name,
-          description: values.description,
-          date: new Date(values.date),
-        });
+        await axios.put(
+          `${process.env.REACT_APP_API_URL}/task/${taskId}`,
+          data
+        );
       } else {
-        await axios.post(`${process.env.REACT_APP_API_URL}/task`, {
-          name: values.name,
-          description: values.description,
-          date: new Date(values.date),
-        });
+        await axios.post(`${process.env.REACT_APP_API_URL}/task`, data);
       }
 
       navigate('/application/tasks/list');
@@ -70,6 +69,9 @@ const TaskAddEditContainer = ({ isEdit }) => {
       name: get(task, 'name', ''),
       description: get(task, 'description', ''),
       date,
+      subTasks: map(get(task, 'subTasks', []), (subtask) => ({
+        name: subtask.name,
+      })),
     };
   }, [task, isEdit]);
 
