@@ -35,7 +35,7 @@ public class SubTaskService {
         subTaskRepository.deleteById(id);
     }
 
-    public SubTask setTaskFinished(Long id, boolean checked) {
+    public SubTask setSubTaskFinished(Long id, boolean checked) {
         SubTask subTask = subTaskRepository.findById(id)
                 .orElseThrow(() -> new SubTaskNotFoundException(id));
         Task mainTask = taskRepository.findById(id)
@@ -45,7 +45,7 @@ public class SubTaskService {
             checkIfMainTaskCanBeFinished(mainTask);
         } else {
             subTask.setUnfinished();
-            mainTask.setFinished();
+            mainTask.setUnfinished();
         }
         taskRepository.save(mainTask);
         return subTaskRepository.save(subTask);

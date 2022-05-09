@@ -96,6 +96,14 @@ public class Task implements Completable {
         return subTasks;
     }
 
+    public void setPreviousTasks(List<Task> previousTasks) {
+        this.previousTasks = previousTasks;
+    }
+
+    public void setSubTasks(List<SubTask> subTasks) {
+        this.subTasks = subTasks;
+    }
+
     public void addSubTask(SubTask subTask) {
         if (subTasks == null) {
             subTasks = new LinkedList<>();
