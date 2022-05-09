@@ -11,11 +11,6 @@ class SubTaskController {
     @Autowired
     private SubTaskService subTaskService;
 
-    @DeleteMapping("/subtask/{id}")
-    public void deleteSubTask(@PathVariable Long id) {
-        subTaskService.deleteTask(id);
-    }
-
     @PutMapping("/subtask/{id}/check")
     SubTask setSubTaskFinishedValue(@PathVariable Long id) {
         return subTaskService.setSubTaskFinished(id, true);

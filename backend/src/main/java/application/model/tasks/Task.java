@@ -31,7 +31,7 @@ public class Task implements Completable {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<SubTask> subTasks;
+    private List<SubTask> subTasks = new ArrayList<>();
 
     public Task() {
     }
@@ -101,7 +101,11 @@ public class Task implements Completable {
     }
 
     public void setSubTasks(List<SubTask> subTasks) {
-        this.subTasks = subTasks;
+        this.subTasks.retainAll(subTasks);
+        this.subTasks.addAll(subTasks);
+        for (SubTask subTask : this.subTasks) {
+            subTask.setMainTask(this);
+        }
     }
 
     public void addSubTask(SubTask subTask) {
@@ -151,7 +155,7 @@ public class Task implements Completable {
     }
 
     public boolean canBeFinished() {
-        for(Task previousTask : previousTasks) {
+        for (Task previousTask : previousTasks) {
             if (!previousTask.isFinished) {
                 return false;
             }

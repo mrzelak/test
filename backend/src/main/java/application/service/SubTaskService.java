@@ -17,28 +17,10 @@ public class SubTaskService {
     @Autowired
     private TaskRepository taskRepository;
 
-    public SubTask updateSubTask(Long id, SubTask newTask) {
-        SubTask subTask = subTaskRepository.findById(id)
-                .orElseThrow(() -> new SubTaskNotFoundException(id));
-        subTask.setName(newTask.getName());
-        subTask.setDescription(newTask.getDescription());
-        if (newTask.isFinished()) {
-            subTask.setFinished();
-        } else {
-            subTask.setUnfinished();
-        }
-
-        return subTaskRepository.save(subTask);
-    }
-
-    public void deleteTask(Long id) {
-        subTaskRepository.deleteById(id);
-    }
-
     public SubTask setSubTaskFinished(Long id, boolean checked) {
         SubTask subTask = subTaskRepository.findById(id)
                 .orElseThrow(() -> new SubTaskNotFoundException(id));
-        Task mainTask = taskRepository.findById(id)
+        Task mainTask = taskRepository.findById(subTask.getMainTask().getId())
                 .orElseThrow(() -> new TaskNotFoundException(id));
         if (checked) {
             subTask.setFinished();
