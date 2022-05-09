@@ -1,10 +1,15 @@
 import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { matchPath, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import AddTaskIcon from '@mui/icons-material/AddTask';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { Box } from '@mui/system';
-import Button from 'components/Button';
+import AccountButton from 'components/AccountButton';
+import MenuButton from 'components/MenuButton';
 
 const AuthorizedLayout = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   return (
     <Box
@@ -12,27 +17,38 @@ const AuthorizedLayout = () => {
         width: '100vw',
         height: '100vh',
         display: 'flex',
+        padding: 20,
+        boxSizing: 'border-box',
       }}
     >
-      <Box sx={{ width: 300, display: 'flex', flexDirection: 'column' }}>
-        TODO przyciski
-        <Button
+      <Box
+        sx={{
+          width: 300,
+          display: 'flex',
+          flexDirection: 'column',
+          rowGap: 20,
+        }}
+      >
+        <MenuButton
+          title="Lista"
+          Icon={FormatListBulletedIcon}
+          active={matchPath('/application/tasks/list', pathname) !== null}
           onClick={() => navigate('/application/tasks/list')}
-          sx={{ width: 200, marginBottom: 20 }}
-        >
-          Lista
-        </Button>
-        <Button
+        />
+        <MenuButton title="Kalendarz" Icon={EventAvailableIcon} />
+        <MenuButton
+          title="Dodaj zadanie"
+          Icon={AddTaskIcon}
+          active={matchPath('/application/tasks/add', pathname) !== null}
           onClick={() => navigate('/application/tasks/add')}
-          sx={{ width: 200, marginBottom: 20 }}
-        >
-          Dodaj zadanie
-        </Button>
+        />
       </Box>
       <Box sx={{ flex: 1, padding: 50 }}>
         <Outlet />
       </Box>
-      <Box sx={{ width: 100 }}>TODO User Avatar</Box>
+      <Box sx={{ width: 100 }}>
+        <AccountButton />
+      </Box>
     </Box>
   );
 };
