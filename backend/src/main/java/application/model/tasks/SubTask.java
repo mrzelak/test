@@ -1,7 +1,10 @@
 package application.model.tasks;
 
 import application.Commons;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 
@@ -72,7 +75,7 @@ public class SubTask implements Completable {
 
     @Override
     public void setUnfinished() {
-        isFinished = true;
+        isFinished = false;
     }
 
     public Task getMainTask() {

@@ -53,6 +53,8 @@ public class TaskService {
         task.setName(newTask.getName());
         task.setDescription(newTask.getDescription());
         task.setDate(newTask.getDate());
+        task.setSubTasks(newTask.getSubTasks());
+        task.setPreviousTasks(newTask.getPreviousTasks());
         if (newTask.isFinished()) {
             task.setFinished();
         } else {
