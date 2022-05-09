@@ -1,5 +1,6 @@
 package application.service;
 
+import application.model.tasks.SubTask;
 import application.model.tasks.Task;
 import application.payroll.TaskCanNotBeFinishedException;
 import application.payroll.TaskNotFoundException;
@@ -19,6 +20,9 @@ public class TaskService {
     }
 
     public void addTask(Task task) {
+        for (SubTask subTask : task.getSubTasks()) {
+            subTask.setMainTask(task);
+        }
         taskRepository.save(task);
     }
 

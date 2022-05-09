@@ -1,6 +1,7 @@
 package application.model.tasks;
 
 import application.Commons;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -16,6 +17,7 @@ public class SubTask implements Completable {
     private boolean isFinished;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = Commons.TASK_ID, nullable = false)
     private Task mainTask;
 
@@ -52,6 +54,10 @@ public class SubTask implements Completable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setMainTask(Task mainTask) {
+        this.mainTask = mainTask;
     }
 
     @Override

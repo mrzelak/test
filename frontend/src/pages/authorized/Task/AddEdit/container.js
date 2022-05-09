@@ -4,6 +4,7 @@ import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import { useNavigate, useParams } from 'react-router-dom';
 import { INPUT_FORMAT } from 'consts/dateFormats';
+import useUnauthorizedHandler from 'hooks/useUnauthorizedHandler';
 import { formatDate } from 'utils/dateUtils';
 import { initialTaskData } from './consts';
 import TaskAddEditView from './view';
@@ -11,6 +12,7 @@ import TaskAddEditView from './view';
 const TaskAddEditContainer = ({ isEdit }) => {
   const navigate = useNavigate();
   const params = useParams();
+  const { handleUnauthorized } = useUnauthorizedHandler();
   const taskId = parseInt(params.taskId);
 
   const [task, setTask] = useState(initialTaskData);
@@ -30,7 +32,7 @@ const TaskAddEditContainer = ({ isEdit }) => {
         const task = res.data;
         setTask(task);
       } catch (err) {
-        console.log(err);
+        handleUnauthorized(err);
       }
     };
 
@@ -59,7 +61,7 @@ const TaskAddEditContainer = ({ isEdit }) => {
 
       navigate('/application/tasks/list');
     } catch (err) {
-      console.log(err);
+      handleUnauthorized(err);
     }
   };
 
