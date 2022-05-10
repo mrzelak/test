@@ -2,10 +2,10 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import AuthorizedLayout from 'layouts/AuthorizedLayout';
 import PublicLayout from 'layouts/PublicLayout';
+import Profile from 'pages/authorized/Profile';
 import TaskAddEdit from 'pages/authorized/Task/AddEdit';
 import TaskDetails from 'pages/authorized/Task/Details';
 import TaskList from 'pages/authorized/Task/List';
-import Profile from 'pages/authorized/Profile';
 import Login from 'pages/public/Login';
 
 const DEFAULT_ROUTE = '/public/login';

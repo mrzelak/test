@@ -25,7 +25,7 @@ const ProfileView = ({ onSubmit, onDelete, tags }) => {
             }}
           >
             <Typography variant="h1">Preferencje</Typography>
-            <Typography variant="h3" sx={styles.subtitle}>
+            <Typography variant="h2" sx={styles.subtitle}>
               Tagi
             </Typography>
             <Box sx={styles.inputWrapper}>
@@ -39,7 +39,13 @@ const ProfileView = ({ onSubmit, onDelete, tags }) => {
       </Formik>
       <Box sx={{ marginTop: 20 }}>
         {map(tags, (entry) => (
-          <Chip key={entry.id} title={entry.tagName} Icon={CloseIcon} onDelete={onDelete.bind(null, entry.id)} />
+          <Chip
+            key={entry.id}
+            title={entry.tagName}
+            Icon={CloseIcon}
+            deletable={false}
+            onDelete={onDelete.bind(null, entry.id)}
+          />
         ))}
       </Box>
     </Box>
