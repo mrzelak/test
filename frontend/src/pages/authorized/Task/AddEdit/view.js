@@ -8,8 +8,9 @@ import Button from 'components/Button';
 import Input from 'components/Input';
 import Select from 'components/Select';
 import { optionsShape } from 'components/Select/shapes';
-import { initialSubTaskData } from './consts';
+import { initialSubTaskData, initialPreviousTaskData } from './consts';
 import styles from './styles';
+import { getUniqueAvailableTasks } from './utils';
 import validationSchema from './validation';
 
 const TaskAddEdit = ({ isEdit, onSubmit, availableTasks, initialValues }) => {
@@ -42,11 +43,45 @@ const TaskAddEdit = ({ isEdit, onSubmit, availableTasks, initialValues }) => {
               type="datetime-local"
               sx={styles.input}
             />
-            <Select
-              name="previousTask"
-              label="Zadanie poprzedzające"
-              options={availableTasks}
-              sx={styles.input}
+            <Typography variant="h3" sx={styles.subtitle}>
+              Zadania poprzedzające
+            </Typography>
+            <FieldArray
+              name="previousTasks"
+              render={(arrayHelpers) => (
+                <>
+                  {map(values.previousTasks, (_, index) => (
+                    <Box sx={styles.fieldWithDeleteWrapper} key={index}>
+                      <Select
+                        name={`previousTasks.${index}.id`}
+                        label="Zadanie poprzedzające"
+                        options={getUniqueAvailableTasks(
+                          availableTasks,
+                          values.previousTasks,
+                          values.previousTasks[index].id
+                        )}
+                        sx={styles.input}
+                      />
+                      <DeleteIcon
+                        onClick={() => arrayHelpers.remove(index)}
+                        sx={styles.deleteIcon}
+                      />
+                    </Box>
+                  ))}
+                  <Button
+                    onClick={() =>
+                      arrayHelpers.insert(
+                        values.previousTasks.length,
+                        initialPreviousTaskData
+                      )
+                    }
+                    size="small"
+                    sx={styles.addField}
+                  >
+                    Dodaj zadanie poprzedzające
+                  </Button>
+                </>
+              )}
             />
             <Typography variant="h3" sx={styles.subtitle}>
               Podzadania
@@ -56,7 +91,7 @@ const TaskAddEdit = ({ isEdit, onSubmit, availableTasks, initialValues }) => {
               render={(arrayHelpers) => (
                 <>
                   {map(values.subTasks, (_, index) => (
-                    <Box sx={styles.subTaskWrapper} key={index}>
+                    <Box sx={styles.fieldWithDeleteWrapper} key={index}>
                       <Input
                         name={`subTasks.${index}.name`}
                         label="Tytuł podzadania"
@@ -64,7 +99,7 @@ const TaskAddEdit = ({ isEdit, onSubmit, availableTasks, initialValues }) => {
                       />
                       <DeleteIcon
                         onClick={() => arrayHelpers.remove(index)}
-                        sx={styles.subTaskDeleteIcon}
+                        sx={styles.deleteIcon}
                       />
                     </Box>
                   ))}
@@ -76,7 +111,7 @@ const TaskAddEdit = ({ isEdit, onSubmit, availableTasks, initialValues }) => {
                       )
                     }
                     size="small"
-                    sx={styles.addSubTask}
+                    sx={styles.addField}
                   >
                     Dodaj podzadanie
                   </Button>
