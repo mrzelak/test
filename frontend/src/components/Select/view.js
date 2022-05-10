@@ -1,4 +1,5 @@
 import React from 'react';
+import { truncate } from 'lodash';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
 import PropTypes from 'prop-types';
@@ -28,10 +29,28 @@ const Select = ({ field, error, helperText, label, options, sx, ...props }) => (
       onChange={(event) => {
         field.onChange(event);
       }}
+      sx={{
+        borderRadius: 5,
+      }}
+      MenuProps={{
+        MenuListProps: {
+          sx: {
+            backgroundColor: (theme) => theme.palette.white,
+          },
+        },
+      }}
     >
       {map(options, ({ value, label }) => (
-        <MenuItem value={value} key={value}>
-          {label}
+        <MenuItem
+          value={value}
+          key={value}
+          sx={{
+            '&:hover': {
+              backgroundColor: (theme) => theme.palette.primary.light,
+            },
+          }}
+        >
+          {truncate(label, { length: 30 })}
         </MenuItem>
       ))}
     </MUISelect>

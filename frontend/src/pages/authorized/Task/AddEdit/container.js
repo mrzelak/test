@@ -16,6 +16,7 @@ const TaskAddEditContainer = ({ isEdit }) => {
   const taskId = parseInt(params.taskId);
 
   const [task, setTask] = useState(initialTaskData);
+  const [availableTasks, setAvailableTasks] = useState([]);
 
   useEffect(() => {
     if (!isEdit) {
@@ -40,6 +41,23 @@ const TaskAddEditContainer = ({ isEdit }) => {
       getTask();
     }
   }, [taskId]);
+
+  useEffect(() => {
+    const getAvailableTasks = async () => {
+      try {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/task`);
+        const availableTasks = map(res.data, (task) => ({
+          value: task.id,
+          label: task.name,
+        }));
+        setAvailableTasks(availableTasks);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getAvailableTasks();
+  }, []);
 
   const onSubmit = async (values) => {
     const data = {
@@ -69,6 +87,9 @@ const TaskAddEditContainer = ({ isEdit }) => {
       name: get(task, 'name', ''),
       description: get(task, 'description', ''),
       date,
+      previousTasks: map(get(task, 'previousTasks', []), (task) => ({
+        id: task.id,
+      })),
       subTasks: map(get(task, 'subTasks', []), (subtask) => ({
         name: subtask.name,
       })),
@@ -80,6 +101,7 @@ const TaskAddEditContainer = ({ isEdit }) => {
       isEdit={isEdit}
       onSubmit={onSubmit}
       initialValues={initialValues}
+      availableTasks={availableTasks}
     />
   );
 };

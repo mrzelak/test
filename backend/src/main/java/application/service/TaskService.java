@@ -23,6 +23,8 @@ public class TaskService {
         for (SubTask subTask : task.getSubTasks()) {
             subTask.setMainTask(task);
         }
+
+        setTaskPreviousTasks(task, task);
         taskRepository.save(task);
     }
 
@@ -54,7 +56,7 @@ public class TaskService {
         task.setDescription(newTask.getDescription());
         task.setDate(newTask.getDate());
         task.setSubTasks(newTask.getSubTasks());
-        task.setPreviousTasks(newTask.getPreviousTasks());
+        setTaskPreviousTasks(task, newTask);
         if (newTask.isFinished()) {
             task.setFinished();
         } else {
@@ -85,6 +87,18 @@ public class TaskService {
 
     public List<Task> getTasksInGivenPeriodOfTime(String startDate, String endDate) {
         return taskRepository.getTasksByTime(startDate, endDate);
+    }
+
+    public void setTaskPreviousTasks(Task task, Task newTask) {
+        List<Task> prevTasks = List.copyOf(newTask.getPreviousTasks());
+        task.clearPreviousTasks();
+
+        for (Task prevTask : prevTasks) {
+            Long id = prevTask.getId();
+            Task foundTask = taskRepository.findById(id)
+                    .orElseThrow(() -> new TaskNotFoundException(id));
+            task.addPreviousTask(foundTask);
+        }
     }
 }
 
