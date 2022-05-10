@@ -19,10 +19,9 @@ public class Task implements Completable {
     private String name;
     private String description;
     private String date;
-    //    private String deadline;
     private boolean isFinished;
 
-    @OneToMany(
+    @ManyToMany(
             cascade = CascadeType.ALL
     )
     private List<Task> previousTasks = new ArrayList<>();
@@ -98,6 +97,10 @@ public class Task implements Completable {
 
     public void setPreviousTasks(List<Task> previousTasks) {
         this.previousTasks = previousTasks;
+    }
+
+    public void clearPreviousTasks() {
+        this.previousTasks.clear();
     }
 
     public void setSubTasks(List<SubTask> subTasks) {
