@@ -39,6 +39,7 @@ class UserManager {
   }
 
   clear() {
+    localStorage.removeItem('token');
     this.token = null;
     this.username = null;
   }

@@ -88,6 +88,9 @@ const TaskAddEditContainer = ({ isEdit }) => {
       description: get(task, 'description', ''),
       date,
       previousTask: get(task, 'previousTask', ''),
+      subTasks: map(get(task, 'subTasks', []), (subtask) => ({
+        name: subtask.name,
+      })),
     };
   }, [task, isEdit]);
 

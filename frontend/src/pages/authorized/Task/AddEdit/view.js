@@ -1,19 +1,18 @@
 import React from 'react';
-import { Form, Formik } from 'formik';
-import noop from 'lodash/noop';
+import { FieldArray, Form, Formik } from 'formik';
+import { map, noop } from 'lodash';
 import PropTypes from 'prop-types';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Box, Typography } from '@mui/material';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import Select from 'components/Select';
 import { optionsShape } from 'components/Select/shapes';
+import { initialSubTaskData } from './consts';
+import styles from './styles';
 import validationSchema from './validation';
 
 const TaskAddEdit = ({ isEdit, onSubmit, availableTasks, initialValues }) => {
-  const inputStyle = {
-    margin: (theme) => theme.spacing(10, 0),
-  };
-
   return (
     <Formik
       onSubmit={onSubmit}
@@ -23,36 +22,73 @@ const TaskAddEdit = ({ isEdit, onSubmit, availableTasks, initialValues }) => {
       validateOnChange={false}
       enableReinitialize
     >
-      <Form>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <Typography variant="h1" sx={{ marginBottom: 20 }}>
-            Nowe zadanie
-          </Typography>
-          <Typography variant="h3">Podstawowe informacje</Typography>
-          <Input name="name" label="Name" sx={inputStyle} />
-          <Input name="description" label="Description" sx={inputStyle} />
-          <Input
-            name="date"
-            label="Date"
-            type="datetime-local"
-            sx={inputStyle}
-          />
-          <Select
-            name="previousTask"
-            label="Zadanie poprzedzające"
-            options={availableTasks}
-            sx={inputStyle}
-          />
-          <Button submit sx={{ margin: 'auto', marginTop: 20 }}>
-            {isEdit ? 'Zatwierdź' : 'Utwórz'}
-          </Button>
-        </Box>
-      </Form>
+      {({ values }) => (
+        <Form>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <Typography variant="h1">Nowe zadanie</Typography>
+            <Typography variant="h3" sx={styles.subtitle}>
+              Podstawowe informacje
+            </Typography>
+            <Input name="name" label="Tytuł" sx={styles.input} />
+            <Input name="description" label="Opis" sx={styles.input} />
+            <Input
+              name="date"
+              label="Deadline"
+              type="datetime-local"
+              sx={styles.input}
+            />
+            <Select
+              name="previousTask"
+              label="Zadanie poprzedzające"
+              options={availableTasks}
+              sx={styles.input}
+            />
+            <Typography variant="h3" sx={styles.subtitle}>
+              Podzadania
+            </Typography>
+            <FieldArray
+              name="subTasks"
+              render={(arrayHelpers) => (
+                <>
+                  {map(values.subTasks, (_, index) => (
+                    <Box sx={styles.subTaskWrapper} key={index}>
+                      <Input
+                        name={`subTasks.${index}.name`}
+                        label="Tytuł podzadania"
+                        sx={styles.input}
+                      />
+                      <DeleteIcon
+                        onClick={() => arrayHelpers.remove(index)}
+                        sx={styles.subTaskDeleteIcon}
+                      />
+                    </Box>
+                  ))}
+                  <Button
+                    onClick={() =>
+                      arrayHelpers.insert(
+                        values.subTasks.length,
+                        initialSubTaskData
+                      )
+                    }
+                    size="small"
+                    sx={styles.addSubTask}
+                  >
+                    Dodaj podzadanie
+                  </Button>
+                </>
+              )}
+            />
+            <Button submit sx={{ margin: 'auto', marginTop: 20 }}>
+              {isEdit ? 'Zatwierdź' : 'Utwórz'}
+            </Button>
+          </Box>
+        </Form>
+      )}
     </Formik>
   );
 };
