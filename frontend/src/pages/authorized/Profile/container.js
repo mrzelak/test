@@ -7,13 +7,14 @@ const Profile = () => {
   const { handleUnauthorized } = useUnauthorizedHandler();
   const [tags, setTags] = useState([]);
 
-  const onTagSubmit = async (value) => {
+  const onTagSubmit = async (value, { resetForm }) => {
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_API_URL}/tag`,
         value
       );
       setTags([...tags, res.data]);
+      resetForm();
     } catch (err) {
       handleUnauthorized(err);
     }
