@@ -2,17 +2,17 @@ export default {
   subtitle: {
     marginTop: 20,
   },
-  subTaskWrapper: {
+  fieldWithDeleteWrapper: {
     display: 'flex',
     alignItems: 'center',
     columnGap: 20,
   },
-  subTaskDeleteIcon: {
+  deleteIcon: {
     color: (theme) => theme.palette.neutral.dark,
     cursor: 'pointer',
   },
-  addSubTask: {
-    width: 200,
+  addField: {
+    width: 250,
     marginTop: 10,
   },
   input: {
