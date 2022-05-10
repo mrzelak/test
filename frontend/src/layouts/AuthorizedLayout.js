@@ -47,7 +47,10 @@ const AuthorizedLayout = () => {
         <Outlet />
       </Box>
       <Box sx={{ width: 100 }}>
-        <AccountButton />
+        <AccountButton
+          active={matchPath('/application/profile', pathname) !== null}
+          onClick={() => navigate('/application/profile')}
+        />
       </Box>
     </Box>
   );
