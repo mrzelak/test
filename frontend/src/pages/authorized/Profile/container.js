@@ -8,22 +8,21 @@ const Profile = () => {
   const [tags, setTags] = useState([]);
 
   const onTagSubmit = async (value) => {
-    console.log(value);
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_API_URL}/tag`,
         value
       );
-      console.log(res);
+      setTags([...tags, res.data]);
     } catch (err) {
       handleUnauthorized(err);
     }
   };
 
   const onTagDelete = async (tagId) => {
-    console.log(tagId);
     try {
       await axios.delete(`${process.env.REACT_APP_API_URL}/tag/${tagId}`);
+      setTags(tags.filter((tag) => tag.id != tagId));
     } catch (err) {
       handleUnauthorized(err);
     }
@@ -35,7 +34,6 @@ const Profile = () => {
         const res = await axios.get(`${process.env.REACT_APP_API_URL}/tags`);
         const tags = res.data;
         setTags(tags);
-        console.log(tags);
       } catch (err) {
         handleUnauthorized(err);
       }
@@ -43,7 +41,9 @@ const Profile = () => {
     getTags();
   }, []);
 
-  return <ProfileView onSubmit={onTagSubmit} onDelete={onTagDelete} tags={tags} />;
+  return (
+    <ProfileView onSubmit={onTagSubmit} onDelete={onTagDelete} tags={tags} />
+  );
 };
 
 export default Profile;
