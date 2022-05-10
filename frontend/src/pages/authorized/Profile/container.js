@@ -7,7 +7,7 @@ const Profile = () => {
   const { handleUnauthorized } = useUnauthorizedHandler();
   const [tags, setTags] = useState([]);
 
-  const onSubmit = async (value) => {
+  const onTagSubmit = async (value) => {
     console.log(value);
     try {
       const res = await axios.post(
@@ -20,8 +20,13 @@ const Profile = () => {
     }
   };
 
-  const onDelete = async () => {
-    console.log('click delete');
+  const onTagDelete = async (tagId) => {
+    console.log(tagId);
+    try {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/tag/${tagId}`);
+    } catch (err) {
+      handleUnauthorized(err);
+    }
   };
 
   useEffect(() => {
@@ -38,7 +43,7 @@ const Profile = () => {
     getTags();
   }, []);
 
-  return <ProfileView onSubmit={onSubmit} onDelete={onDelete} tags={tags} />;
+  return <ProfileView onSubmit={onTagSubmit} onDelete={onTagDelete} tags={tags} />;
 };
 
 export default Profile;

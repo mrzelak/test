@@ -39,7 +39,7 @@ const ProfileView = ({ onSubmit, onDelete, tags }) => {
       </Formik>
       <Box sx={{ marginTop: 20 }}>
         {map(tags, (entry) => (
-          <Chip key={entry.id} title={entry.tagName} Icon={CloseIcon} onDelete={onDelete} />
+          <Chip key={entry.id} title={entry.tagName} Icon={CloseIcon} onDelete={onDelete.bind(null, entry.id)} />
         ))}
       </Box>
     </Box>
