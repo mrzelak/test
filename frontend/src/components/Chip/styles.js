@@ -6,6 +6,7 @@ export default () => ({
     color: (theme) => theme.palette.secondary.contrastText,
     textTransform: 'none',
     backgroundColor: (theme) => theme.palette.secondary.main,
+    margin: 10,
   },
   icon: {
     width: 30,

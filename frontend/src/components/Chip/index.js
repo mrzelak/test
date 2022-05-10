@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Chip as MUIChip } from '@mui/material';
 import getStyles from './styles';
 
-const Chip = ({ title, Icon, onDelete, }) => {
+const Chip = ({ title, Icon, onDelete }) => {
   const styles = getStyles();
 
   return (
@@ -12,8 +12,8 @@ const Chip = ({ title, Icon, onDelete, }) => {
       label={title}
       onDelete={onDelete}
       variant="contained"
-      sx={{ ...styles.root}}
-      deleteIcon={<Icon  sx={{ ...styles.icon}}/>}
+      sx={{ ...styles.root }}
+      deleteIcon={<Icon sx={{ ...styles.icon }} />}
     />
   );
 };
