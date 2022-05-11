@@ -1,8 +1,6 @@
 package application.model.tasks;
 
 import application.Commons;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
