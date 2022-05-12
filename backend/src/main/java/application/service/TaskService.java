@@ -67,6 +67,12 @@ public class TaskService {
     }
 
     public void deleteTask(Long id) {
+        List<Task> dependentTasks = taskRepository.getDependentTasks(id);
+        Task previousTask = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
+        for (Task task : dependentTasks) {
+            deletePreviousTask(task.getId(), previousTask);
+        }
         taskRepository.deleteById(id);
     }
 
