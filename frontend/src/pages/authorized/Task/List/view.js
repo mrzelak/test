@@ -6,11 +6,15 @@ import { Box } from '@mui/material';
 import DayTasks from 'templates/DayTasks';
 import TaskSeparator from 'components/TaskSeparator';
 import { tasksWithDateShape } from './shapes';
+import { toInteger } from 'lodash';
+import differenceInDays from 'date-fns/fp/differenceInDays';
+import { DATE_FORMAT } from 'consts/dateFormats';
+import { formatDate } from 'utils/dateUtils';
 
 const TaskListView = ({ tasks, onTaskClick, onTaskCheck }) => {
   return (
     <Box>
-      {map(tasks, (entry) => (
+      {map(tasks, (entry, index) => (
         <Box sx={{ marginBottom: 40 }} key={entry.id}>
           <DayTasks
             date={entry.date}
@@ -21,7 +25,7 @@ const TaskListView = ({ tasks, onTaskClick, onTaskCheck }) => {
           <Box>
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center',height: '3vh',}}>
               <Box sx={{ marginTop: 30, width: 150 }}>
-                <TaskSeparator value={5} />
+                <TaskSeparator value={differenceInDays(tasks[index].date, tasks?.[index+1]?.date)} /> 
               </Box>
              </div>
           </Box>
