@@ -1,6 +1,7 @@
 package application.service;
 
 import application.model.tag.Tag;
+import application.model.tasks.SubTask;
 import application.model.tasks.Task;
 import application.payroll.TaskCanNotBeFinishedException;
 import application.payroll.TaskNotFoundException;
@@ -20,6 +21,11 @@ public class TaskService {
     }
 
     public void addTask(Task task) {
+        for (SubTask subTask : task.getSubTasks()) {
+            subTask.setMainTask(task);
+        }
+
+        setTaskPreviousTasks(task, task);
         taskRepository.save(task);
     }
 
@@ -50,6 +56,9 @@ public class TaskService {
         task.setName(newTask.getName());
         task.setDescription(newTask.getDescription());
         task.setDate(newTask.getDate());
+        task.setSubTasks(newTask.getSubTasks());
+        task.setTags(newTask.getTags());
+        setTaskPreviousTasks(task, newTask);
         if (newTask.isFinished()) {
             task.setFinished();
         } else {
@@ -60,6 +69,12 @@ public class TaskService {
     }
 
     public void deleteTask(Long id) {
+        List<Task> dependentTasks = taskRepository.getDependentTasks(id);
+        Task previousTask = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
+        for (Task task : dependentTasks) {
+            deletePreviousTask(task.getId(), previousTask);
+        }
         taskRepository.deleteById(id);
     }
 
@@ -86,6 +101,7 @@ public class TaskService {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
         task.addTag(tag);
+        tag.addTask(task);
 
         return taskRepository.save(task);
     }
@@ -94,8 +110,21 @@ public class TaskService {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
         task.removeTag(tag);
+        tag.removeTask(task);
 
         taskRepository.save(task);
+    }
+
+    public void setTaskPreviousTasks(Task task, Task newTask) {
+        List<Task> prevTasks = List.copyOf(newTask.getPreviousTasks());
+        task.clearPreviousTasks();
+
+        for (Task prevTask : prevTasks) {
+            Long id = prevTask.getId();
+            Task foundTask = taskRepository.findById(id)
+                    .orElseThrow(() -> new TaskNotFoundException(id));
+            task.addPreviousTask(foundTask);
+        }
     }
 }
 

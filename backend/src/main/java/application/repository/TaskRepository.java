@@ -9,7 +9,10 @@ import java.util.List;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
-    @Query("from Task where date > :startDate and date < :endDate " )
+    @Query("from Task where date > :startDate and date < :endDate ")
     List<Task> getTasksByTime(String startDate, String endDate);
+
+    @Query("from Task task join task.previousTasks prevTask where prevTask.id = :prevTaskId")
+    List<Task> getDependentTasks(Long prevTaskId);
 }
 

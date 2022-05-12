@@ -6,4 +6,9 @@ export default Yup.object({
   name: Yup.string().required(required),
   description: Yup.string().required(required),
   date: Yup.string().required(required),
+  subTasks: Yup.array().of(
+    Yup.object({
+      name: Yup.string().required(required),
+    })
+  ),
 });

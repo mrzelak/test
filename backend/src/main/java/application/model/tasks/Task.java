@@ -2,6 +2,8 @@ package application.model.tasks;
 
 import application.Commons;
 import application.model.tag.Tag;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,10 +22,9 @@ public class Task implements Completable {
     private String name;
     private String description;
     private String date;
-    //    private String deadline;
     private boolean isFinished;
 
-    @OneToMany(
+    @ManyToMany(
             cascade = CascadeType.ALL
     )
     private List<Task> previousTasks = new ArrayList<>();
@@ -32,8 +33,10 @@ public class Task implements Completable {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<SubTask> subTasks;
+    private List<SubTask> subTasks = new ArrayList<>();
 
+    @Getter
+    @Setter
     @ManyToMany
     private List<Tag> tags = new ArrayList<>();
 
@@ -100,6 +103,22 @@ public class Task implements Completable {
         return subTasks;
     }
 
+    public void setPreviousTasks(List<Task> previousTasks) {
+        this.previousTasks = previousTasks;
+    }
+
+    public void clearPreviousTasks() {
+        this.previousTasks.clear();
+    }
+
+    public void setSubTasks(List<SubTask> subTasks) {
+        this.subTasks.retainAll(subTasks);
+        this.subTasks.addAll(subTasks);
+        for (SubTask subTask : this.subTasks) {
+            subTask.setMainTask(this);
+        }
+    }
+
     public void addSubTask(SubTask subTask) {
         if (subTasks == null) {
             subTasks = new LinkedList<>();
@@ -147,7 +166,7 @@ public class Task implements Completable {
     }
 
     public boolean canBeFinished() {
-        for(Task previousTask : previousTasks) {
+        for (Task previousTask : previousTasks) {
             if (!previousTask.isFinished) {
                 return false;
             }
