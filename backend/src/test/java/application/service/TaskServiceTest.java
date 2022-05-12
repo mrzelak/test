@@ -33,6 +33,7 @@ public class TaskServiceTest {
     public void initMocks() {
         MockitoAnnotations.openMocks(this);
         when(taskRepository.findById(1L)).thenReturn(Optional.of(task1));
+        when(taskRepository.findById(2L)).thenReturn(Optional.of(task2));
     }
 
     public void findAll_repositoryIsNotEmpty_returnListOfTasks() {
@@ -92,7 +93,8 @@ public class TaskServiceTest {
     public void setTaskFinished_getId_taskIsChecked() {
         //given
         //when
-        var result = taskService.setTaskFinished(1L, true);
+        taskService.setTaskFinished(2L, true);
+        taskService.setTaskFinished(1L, true);
         //then
         Assert.assertTrue(task1.isFinished());
     }
