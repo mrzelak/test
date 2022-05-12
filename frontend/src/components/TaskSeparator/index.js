@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Box } from '@mui/system';
 import styles from './styles';
 
@@ -22,7 +21,5 @@ const TaskSeparator = ({ value }) => {
     
   );
 };
-
-
 
 export default TaskSeparator;

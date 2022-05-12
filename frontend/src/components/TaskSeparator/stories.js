@@ -15,8 +15,4 @@ const Template = (args) => (
 
 const Default = Template.bind({});
 
-Default.args = {
-  date: new Date(),
-};
-
 export { Default };
