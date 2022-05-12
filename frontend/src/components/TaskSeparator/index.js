@@ -12,7 +12,7 @@ const TaskSeparator = ({ value }) => {
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box sx={styles.circle} />
         <Box>{
-         value == 1 ? value + ' day' : value + ' days'
+         value == 1 ? value + ' dzień' : value + ' dni'
          }</Box>
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
