@@ -29,16 +29,8 @@ const DayTasks = ({ date, tasks, onTaskClick, onTaskCheck }) => {
       <Box sx={{ marginTop: 15, width: 150 }}>
         <DayIndicator date={date} />
       </Box>
-
     </Box>
-      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center',height: '10vh',}}>
-      <Box sx={{ marginTop: 15, width: 150 }}>
-        <TaskSeparator value={5} />
-      </Box>
-
-    </div>
     </Box>
-     
   );
 };
 
