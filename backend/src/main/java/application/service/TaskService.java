@@ -1,5 +1,6 @@
 package application.service;
 
+import application.model.tag.Tag;
 import application.model.tasks.SubTask;
 import application.model.tasks.Task;
 import application.payroll.TaskCanNotBeFinishedException;
@@ -56,6 +57,7 @@ public class TaskService {
         task.setDescription(newTask.getDescription());
         task.setDate(newTask.getDate());
         task.setSubTasks(newTask.getSubTasks());
+        task.setTags(newTask.getTags());
         setTaskPreviousTasks(task, newTask);
         if (newTask.isFinished()) {
             task.setFinished();
@@ -93,6 +95,24 @@ public class TaskService {
 
     public List<Task> getTasksInGivenPeriodOfTime(String startDate, String endDate) {
         return taskRepository.getTasksByTime(startDate, endDate);
+    }
+
+    public Task addTag(Long id, Tag tag) throws TaskNotFoundException {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
+        task.addTag(tag);
+        tag.addTask(task);
+
+        return taskRepository.save(task);
+    }
+
+    public void deleteTag(Long id, Tag tag) throws TaskNotFoundException {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
+        task.removeTag(tag);
+        tag.removeTask(task);
+
+        taskRepository.save(task);
     }
 
     public void setTaskPreviousTasks(Task task, Task newTask) {

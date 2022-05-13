@@ -1,6 +1,9 @@
 package application.model.tasks;
 
 import application.Commons;
+import application.model.tag.Tag;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -31,6 +34,11 @@ public class Task implements Completable {
             orphanRemoval = true
     )
     private List<SubTask> subTasks = new ArrayList<>();
+
+    @Getter
+    @Setter
+    @ManyToMany
+    private List<Tag> tags = new ArrayList<>();
 
     public Task() {
     }
@@ -164,5 +172,13 @@ public class Task implements Completable {
             }
         }
         return true;
+    }
+
+    public void addTag(Tag tag) {
+        tags.add(tag);
+    }
+
+    public void removeTag(Tag tag) {
+        tags.remove(tag);
     }
 }
