@@ -97,24 +97,6 @@ public class TaskService {
         return taskRepository.getTasksByTime(startDate, endDate);
     }
 
-    public Task addTag(Long id, Tag tag) throws TaskNotFoundException {
-        Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new TaskNotFoundException(id));
-        task.addTag(tag);
-        tag.addTask(task);
-
-        return taskRepository.save(task);
-    }
-
-    public void deleteTag(Long id, Tag tag) throws TaskNotFoundException {
-        Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new TaskNotFoundException(id));
-        task.removeTag(tag);
-        tag.removeTask(task);
-
-        taskRepository.save(task);
-    }
-
     public void setTaskPreviousTasks(Task task, Task newTask) {
         List<Task> prevTasks = List.copyOf(newTask.getPreviousTasks());
         task.clearPreviousTasks();
@@ -125,6 +107,10 @@ public class TaskService {
                     .orElseThrow(() -> new TaskNotFoundException(id));
             task.addPreviousTask(foundTask);
         }
+    }
+
+    public List<Task> getTasksByTagName(String tagName) {
+        return taskRepository.getTasksByTagName(tagName);
     }
 }
 
