@@ -65,7 +65,6 @@ public class TaskController {
     @GetMapping("/task/{startDate}/{endDate}")
     public List<Task> getTaskInGivenPeriodOfTime(@PathVariable String startDate, @PathVariable  String endDate) {
         return  taskService.getTasksInGivenPeriodOfTime(startDate, endDate);
-
     }
 
     @PutMapping("/task/{id}/tags")
@@ -77,6 +76,10 @@ public class TaskController {
     public void deleteTag(@RequestBody Tag tag, @PathVariable Long id) {
         taskService.deleteTag(id, tag);
     }
-    
+
+    @GetMapping("/task/{tagName}")
+    public List<Task> getTaskByTagName(@PathVariable String tagName) {
+        return taskService.getTasksByTagName(tagName);
+    }
 }
 

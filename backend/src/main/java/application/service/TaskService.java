@@ -126,5 +126,9 @@ public class TaskService {
             task.addPreviousTask(foundTask);
         }
     }
+
+    public List<Task> getTasksByTagName(String tagName) {
+        return taskRepository.getTasksByTagName(tagName);
+    }
 }
 
