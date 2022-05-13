@@ -43,8 +43,7 @@ const ProfileView = ({ onSubmit, onDelete, tags }) => {
             key={entry.id}
             title={entry.tagName}
             Icon={CloseIcon}
-            deletable={false}
-            onDelete={onDelete.bind(null, entry.id)}
+            onDelete={() => onDelete(entry.id)}
           />
         ))}
       </Box>
@@ -58,6 +57,7 @@ ProfileView.propTypes = {
   tags: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
+      id: PropTypes.number,
     })
   ),
 };
