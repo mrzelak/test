@@ -1,4 +1,5 @@
 import React from 'react';
+import noop from 'lodash/noop';
 import CloseIcon from '@mui/icons-material/Close';
 import AppThemeProvider from 'providers/Theme';
 import Component from '.';
@@ -14,11 +15,18 @@ const Template = (args) => (
   </AppThemeProvider>
 );
 
-const Default = Template.bind({});
+const Deletable = Template.bind({});
+const Undeletable = Template.bind({});
 
-Default.args = {
-  title: 'Default',
+Deletable.args = {
+  title: 'Deletable',
+  onDelete: noop,
   Icon: CloseIcon,
 };
 
-export { Default };
+Undeletable.args = {
+  title: 'Undeletable',
+  onDelete: null,
+};
+
+export { Deletable, Undeletable };

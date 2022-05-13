@@ -1,5 +1,4 @@
 import React from 'react';
-import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import CloseIcon from '@mui/icons-material/Close';
 import { Chip as MUIChip } from '@mui/material';
@@ -28,7 +27,7 @@ Chip.propTypes = {
 Chip.defaultProps = {
   title: '',
   Icon: CloseIcon,
-  onDelete: noop,
+  onDelete: null,
 };
 
 export default Chip;
