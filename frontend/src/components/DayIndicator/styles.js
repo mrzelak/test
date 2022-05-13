@@ -6,7 +6,7 @@ export default {
     minWidth: SIZE,
     height: SIZE,
     minHeight: SIZE,
-    backgroundColor: '#89CFF0',
+    backgroundColor: (theme) => theme.palette.primary.main,
     borderRadius: '50%',
     marginRight: 10,
     boxSizing: 'border-box',
