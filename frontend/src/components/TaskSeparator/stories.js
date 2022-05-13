@@ -15,4 +15,8 @@ const Template = (args) => (
 
 const Default = Template.bind({});
 
+Default.args = {
+  value: 2,
+};
+
 export { Default };
