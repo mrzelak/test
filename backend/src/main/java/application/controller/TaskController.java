@@ -66,7 +66,7 @@ public class TaskController {
         return  taskService.getTasksInGivenPeriodOfTime(startDate, endDate);
     }
 
-    @GetMapping("/task/{tagName}")
+    @GetMapping("/task/tag/{tagName}")
     public List<Task> getTaskByTagName(@PathVariable String tagName) {
         return taskService.getTasksByTagName(tagName);
     }
