@@ -14,6 +14,7 @@ export default (checked) => ({
     justifyContent: 'center',
     alignItems: 'center',
     boxSizing: 'border-box',
+    cursor: 'pointer',
     ...(checked && { borderColor: 'primary.main' }),
   },
   insideDot: {
