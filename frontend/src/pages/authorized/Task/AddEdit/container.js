@@ -74,11 +74,11 @@ const TaskAddEditContainer = ({ isEdit }) => {
           `${process.env.REACT_APP_API_URL}/task/${taskId}`,
           data
         );
+        navigate(`/application/tasks/${taskId}`);
       } else {
         await axios.post(`${process.env.REACT_APP_API_URL}/task`, data);
+        navigate('/application/tasks/list');
       }
-
-      navigate('/application/tasks/list');
     } catch (err) {
       handleUnauthorized(err);
     }
