@@ -14,7 +14,6 @@ const AuthorizedLayout = () => {
   return (
     <Box
       sx={{
-        width: '100vw',
         height: '100vh',
         display: 'flex',
         padding: 20,
@@ -43,7 +42,7 @@ const AuthorizedLayout = () => {
           onClick={() => navigate('/application/tasks/add')}
         />
       </Box>
-      <Box sx={{ flex: 1, padding: 50 }}>
+      <Box sx={{ flex: 1, padding: 50, maxWidth: 1000 }}>
         <Outlet />
       </Box>
       <Box sx={{ width: 100 }}>
