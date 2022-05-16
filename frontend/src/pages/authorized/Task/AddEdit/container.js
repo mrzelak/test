@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
-import { get, map } from 'lodash';
+import { filter, get, map } from 'lodash';
 import PropTypes from 'prop-types';
 import { useNavigate, useParams } from 'react-router-dom';
 import { INPUT_FORMAT } from 'consts/dateFormats';
@@ -46,11 +46,15 @@ const TaskAddEditContainer = ({ isEdit }) => {
     const getAvailableTasks = async () => {
       try {
         const res = await axios.get(`${process.env.REACT_APP_API_URL}/task`);
-        const availableTasks = map(res.data, (task) => ({
+        const filteredTasks = filter(
+          res.data,
+          (task) => !task.finished && task.id !== taskId
+        );
+        const options = map(filteredTasks, (task) => ({
           value: task.id,
           label: task.name,
         }));
-        setAvailableTasks(availableTasks);
+        setAvailableTasks(options);
       } catch (err) {
         console.log(err);
       }
