@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { findIndex } from 'lodash';
 import { useNavigate, useParams } from 'react-router-dom';
 import useUnauthorizedHandler from 'hooks/useUnauthorizedHandler';
 import TaskDetailsView from './view';
@@ -45,11 +46,31 @@ const TaskDetailsContainer = () => {
     navigate(`/application/tasks/edit/${taskId}`);
   };
 
+  const onSubTaskCheck = async (subTaskId) => {
+    try {
+      const subTaskIndex = findIndex(
+        task.subTasks,
+        ({ id }) => id === subTaskId
+      );
+      const checked = !task.subTasks[subTaskIndex].finished;
+      const endpoint = checked ? 'check' : 'uncheck';
+      await axios.put(
+        `${process.env.REACT_APP_API_URL}/subtask/${subTaskId}/${endpoint}`
+      );
+      const newSubTasks = [...task.subTasks];
+      newSubTasks[subTaskIndex].finished = checked;
+      setTask({ ...task, subTasks: newSubTasks });
+    } catch (err) {
+      handleUnauthorized(err);
+    }
+  };
+
   return (
     <TaskDetailsView
       task={task}
       onTaskDelete={onTaskDelete}
       onTaskEdit={onTaskEdit}
+      onSubTaskCheck={onSubTaskCheck}
     />
   );
 };
