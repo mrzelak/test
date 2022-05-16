@@ -19,27 +19,25 @@ const TaskListView = ({ tasks, onTaskClick, onTaskCheck }) => {
             onTaskClick={onTaskClick}
             onTaskCheck={onTaskCheck}
           />
-          <Box>
-            {!isNaN(tasks?.[index + 1]?.date) ? (
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '3vh',
-                }}
-              >
-                <Box sx={{ marginTop: 30, width: 220 }}>
-                  <TaskSeparator
-                    value={differenceInDays(
-                      tasks[index].date,
-                      tasks?.[index + 1]?.date
-                    )}
-                  />
-                </Box>
+          {!isNaN(tasks?.[index + 1]?.date) ? (
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingTop: 30,
+              }}
+            >
+              <Box sx={{ width: 220 }}>
+                <TaskSeparator
+                  value={differenceInDays(
+                    tasks[index].date,
+                    tasks?.[index + 1]?.date
+                  )}
+                />
               </Box>
-            ) : null}
-          </Box>
+            </Box>
+          ) : null}
         </Box>
       ))}
     </Box>
