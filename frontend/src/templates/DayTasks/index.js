@@ -6,30 +6,29 @@ import { Box } from '@mui/system';
 import DayIndicator from 'components/DayIndicator';
 import TaskRow from 'components/TaskRow';
 import { tasksShape } from './shapes';
-import TaskSeparator from 'components/TaskSeparator';
 
 const DayTasks = ({ date, tasks, onTaskClick, onTaskCheck }) => {
   return (
     <Box>
-    <Box sx={{ display: 'flex', width: '100%', columnGap: 40 }}>
-      <Box sx={{ flex: 1 }}>
-        {map(tasks, (task) => (
-          <TaskRow
-            key={task.id}
-            isDone={task.finished}
-            onClick={() => onTaskClick(task.id)}
-            onCheck={() => onTaskCheck(task.id)}
-            title={task.name}
-            time={task.time}
-            severity={task.severity}
-            sx={{ marginBottom: 5 }}
-          />
-        ))}
+      <Box sx={{ display: 'flex', width: '100%', columnGap: 40 }}>
+        <Box sx={{ flex: 1 }}>
+          {map(tasks, (task) => (
+            <TaskRow
+              key={task.id}
+              isDone={task.finished}
+              onClick={() => onTaskClick(task.id)}
+              onCheck={() => onTaskCheck(task.id)}
+              title={task.name}
+              time={task.time}
+              severity={task.severity}
+              sx={{ marginBottom: 5 }}
+            />
+          ))}
+        </Box>
+        <Box sx={{ marginTop: 15, width: 150 }}>
+          <DayIndicator date={date} />
+        </Box>
       </Box>
-      <Box sx={{ marginTop: 15, width: 150 }}>
-        <DayIndicator date={date} />
-      </Box>
-    </Box>
     </Box>
   );
 };

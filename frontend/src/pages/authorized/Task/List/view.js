@@ -1,14 +1,12 @@
 import React from 'react';
+import differenceInDays from 'date-fns/fp/differenceInDays';
 import map from 'lodash/map';
 import noop from 'lodash/noop';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
-import DayTasks from 'templates/DayTasks';
 import TaskSeparator from 'components/TaskSeparator';
+import DayTasks from 'templates/DayTasks';
 import { tasksWithDateShape } from './shapes';
-import differenceInDays from 'date-fns/fp/differenceInDays';
-import { DATE_FORMAT } from 'consts/dateFormats';
-import { formatDate } from 'utils/dateUtils';
 
 const TaskListView = ({ tasks, onTaskClick, onTaskCheck }) => {
   return (
@@ -21,15 +19,25 @@ const TaskListView = ({ tasks, onTaskClick, onTaskCheck }) => {
             onTaskClick={onTaskClick}
             onTaskCheck={onTaskCheck}
           />
-          <Box>{
-          !isNaN(tasks?.[index+1]?.date)? 
-            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center',height: '3vh',}}>
-              <Box sx={{ marginTop: 30, width: 220 }}>
-                <TaskSeparator value={differenceInDays(tasks[index].date, tasks?.[index+1]?.date)} /> 
+          {!isNaN(tasks?.[index + 1]?.date) ? (
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingTop: 30,
+              }}
+            >
+              <Box sx={{ width: 220 }}>
+                <TaskSeparator
+                  value={differenceInDays(
+                    tasks[index].date,
+                    tasks?.[index + 1]?.date
+                  )}
+                />
               </Box>
-             </div>
-             : ''}
-          </Box>
+            </Box>
+          ) : null}
         </Box>
       ))}
     </Box>
