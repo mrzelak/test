@@ -1,0 +1,3 @@
+# todo: zrobić z tego skrypt obsługujący podzadania
+lwp-request -m post -b http://localhost:8080 -c application/json -H "Authorization: Bearer $token" subtask/10
+{"name":"pozadanko","description":"denia"}
