@@ -1,0 +1,131 @@
+__________________________________________________________________________________________________
+
+
+# * DELETE ~/task/{id} - id nie ma w bazie -> śliczny komunikat błędu w maven'ie.
+# podczas usuwania zadania którego nie ma w bazie leci wyjątek. do naprawy.
+
+* 500 Internal Server Error
+
+# nie ma zadania o ID 100
+
+lwp-request -m delete -b http://localhost:8080 task/100
+
+ ! zaprezentowane Kamilowi.
+
+ ! znajduje się się w testach.
+
+__________________________________________________________________________________________________
+
+
+* 500 Internal Server Error
+
+lwp-request -m post -b http://localhost:8080 -c application/json task
+{
+"name":"nadrzedne",
+"description":"opis"
+}
+lwp-request -m put -b http://localhost:8080 -c application/json task/30/previous
+{
+"name":"podrzedne",
+"description":"oppis"
+}
+# to żadanie ^ zwróciło task o id 100
+lwp-request -m delete -b http://localhost:8080 task/100
+
+#tworzysz zadanie, dorzucasz do niego zadanie poprzedzające, póki co jest bosko
+#jak chcesz usunąć to zadanie korzystając z api to dostajesz error 500 internal error.
+#...ale jak usuniesz zadanie późniejsze, w sensie to które oznaczyło inne zadanie jako poprzednie, to jest już wszystko w porządku.
+
+ ! zaprezentowane Kamilowi.
+
+ ! znajduje się w testach.
+
+__________________________________________________________________________________________________
+
+
+* 200 OK (a nic się nie dzieje)
+
+lwp-request -m put -b http://localhost:8080 -c application/json task/1/previous
+{
+"name":"hallo"
+}
+# nowo utwrzone zadanie ma id 2
+
+lwp-request -m delete -b http://localhost:8080 -c application/json -f task/1/previous
+{
+"id":2
+}
+200 OK - mimo źe nie zaktualizowano zmian w bazie.
+
+
+lwp-request -m delete -b http://localhost:8080 -c application/json -f task/1/previous
+{
+"id":2,
+... *wszystkie* dane o zadaniu...
+}
+# dopiero teraz zadanie się usuwa.
+
+ ! zaprezentowane Kamilowi.
+
+ ? brak w testach - brak pomysłu.
+
+__________________________________________________________________________________________________
+
+
+* 500 Internal Server Error 
+
+lwp-request -m post -b http://localhost:8080 -c application/json authentication/signup
+{
+"username":"roz pro chy",
+"password":"auuuuuuuuuu",
+"email":"siemaaaaaaaaaa"
+}
+
+... i serwer się wywraca
+
+fix: poprawny mail.
+
+ ! napisane na grupie.
+
+ ! znajduje się w testach.
+
+__________________________________________________________________________________________________
+
+
+* zadania wrzucane jako previous'y są zawsze nowo tworzone w bazie.
+
+trzeba przez to tworzyć zadania w kolejności odwrotnej do zależności czasowej.
+
+
+__________________________________________________________________________________________________
+__________________________________________________________________________________________________
+__________________________________________________________________________________________________
+__________________________________________________________________________________________________
+
+!!!!!!!!!!!!!!!!!!!!! jak się zalogować/zarejestrować !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+lwp-request -m post -b http://localhost:8080 -c application/json authentication/signup
+{
+"username":"roz pro chy",
+"password":"auuuuuuuuuu",
+"email":"siemaa@aaaaaaaa"
+}
+
+lwp-request -m post -b http://localhost:8080 -c application/json authentication/signin
+{
+"username":"roz pro chy",
+"password":"auuuuuuuuuu",
+"email":"siemaa@aaaaaaaa"
+}
+
+# zwraca ci między innymi tokena, kopiujesz go ctrl + insert
+token=<shift + insert>
+# lwp-request -m get -b http://localhost:8080 -H "Authentication: Bearer $token" task - tak było wcześniej :/
+lwp-request -m get -b http://localhost:8080 -H "Authorization: Bearer $token" task
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+__________________________________________________________________________________________________
+__________________________________________________________________________________________________
+__________________________________________________________________________________________________
+__________________________________________________________________________________________________

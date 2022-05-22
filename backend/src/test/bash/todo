@@ -1,0 +1,17 @@
+ * dodać obsługę podzadań (opt)
+
+ * podpiąć linter pod projekt
+
+ * za pomocą komendy :w w vimie zrzucić dokumentację do różnych plików, z'cat'ować je, przeredagować, dokleić do README wyczyścić pozostałe pliki tymczasowe
+
+ * obsługa gita całego tego przedsięwzięcia - na sam koniec; w szczególności:
+
+   - pobranie najnowszego repo;
+
+   - wrzucenie do najnowszego repo;
+
+   - zabawa z gałęziami: wymyślić ile, jakie nazwy, ew. jakie merge'e;
+
+   - zabawa z commitami: wymyslić ile, jakie tytuły, jakie opisy;
+
+   - zabawa ze wrzucaniem do repo. 
